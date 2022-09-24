@@ -6,8 +6,18 @@ namespace Composer\Autoload;
 
 class ComposerStaticInita4baf41f5be617fda3085a7408e7834e
 {
-    public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/..' . '/cotacaoweb/php-classes/src',
+    public static $prefixLengthsPsr4 = array (
+        'C' => 
+        array (
+            'Cotacaoweb\\' => 11,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Cotacaoweb\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/Cotacaoweb/php-classes/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -42,7 +52,8 @@ class ComposerStaticInita4baf41f5be617fda3085a7408e7834e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->fallbackDirsPsr4 = ComposerStaticInita4baf41f5be617fda3085a7408e7834e::$fallbackDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita4baf41f5be617fda3085a7408e7834e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita4baf41f5be617fda3085a7408e7834e::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInita4baf41f5be617fda3085a7408e7834e::$prefixesPsr0;
             $loader->classMap = ComposerStaticInita4baf41f5be617fda3085a7408e7834e::$classMap;
 
