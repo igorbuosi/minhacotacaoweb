@@ -1,21 +1,23 @@
 <?php 
-
+//session_start();
 require_once("vendor/autoload.php");
+use \Slim\Slim;
 
-$app = new \Slim\Slim();
+
+$app = new Slim();
 
 $app->config('debug', true);
 
-$app->get('/', function() {
-    
-	$sql = new \Cotacaoweb\DB\Sql();
+//require_once("functions.php");
+require_once("painel.php");
+//require_once("admin.php");
+//require_once("admin-categories.php");
+//require_once("admin-users.php");
+//require_once("admin-products.php");
+//require_once("admin-orders.php");
 
-	$results = $sql->select("select * from teste");
-
-	echo json_encode($results);
 
 
-});
 
 $app->run();
 

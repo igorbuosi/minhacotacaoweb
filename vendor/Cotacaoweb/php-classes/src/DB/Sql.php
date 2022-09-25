@@ -13,24 +13,20 @@ class Sql {
 
 	public function __construct()
 	{
-
 		$this->conn = new \PDO(
 			"mysql:dbname=".Sql::DBNAME.";host=".Sql::HOSTNAME, 
 			Sql::USERNAME,
 			Sql::PASSWORD
 		);
-
 	}
 
 	private function setParams($statement, $parameters = array())
 	{
-
 		foreach ($parameters as $key => $value) {
 			
 			$this->bindParam($statement, $key, $value);
 
 		}
-
 	}
 
 	private function bindParam($statement, $key, $value)
@@ -62,6 +58,10 @@ class Sql {
 
 		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
+	}
+
+	public function UltimoInserido(){
+		return $this->conn->lastInsertId();
 	}
 
 }

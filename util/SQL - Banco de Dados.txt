@@ -1,0 +1,66 @@
+CREATE TABLE `minhacotacaoweb`.`estado` (
+  `idestado` INT NOT NULL AUTO_INCREMENT,
+  `siglaEstado` CHAR(2) NOT NULL,
+  `nomeEstado` VARCHAR(50) CHARACTER SET 'utf8' NOT NULL,
+  `codigoEstadoIBGE` INT NULL,
+  `codigoPaisIBGE` VARCHAR(50) NULL,
+  `nomePais` VARCHAR(100) NULL,
+  `situacao` CHAR NULL,
+  PRIMARY KEY (`idestado`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+insert into estado (siglaestado, nomeestado, codigoestadoibge, codigopaisibge, nomepais, situacao) values
+('SP', 'São Paulo', 35, '50','Brasil', 'A');
+
+insert into estado (siglaestado, nomeestado, codigoestadoibge, codigopaisibge, nomepais, situacao) values
+('MG', 'Minas Gerais', 35, '50','Brasil', 'A');
+
+insert into estado (siglaestado, nomeestado, codigoestadoibge, codigopaisibge, nomepais, situacao) values
+('BA', 'Bahia', 35, '50','Brasil', 'A');
+
+insert into estado (siglaestado, nomeestado, codigoestadoibge, codigopaisibge, nomepais, situacao) values
+('TO', 'Tocantins', 35, '50','Brasil', 'A');
+
+insert into estado (siglaestado, nomeestado, codigoestadoibge, codigopaisibge, nomepais, situacao) values
+('MT', 'Mato Grosso', 35, '50','Brasil', 'A');
+
+insert into estado (siglaestado, nomeestado, codigoestadoibge, codigopaisibge, nomepais, situacao) values
+('MS', 'Mato Grosso do Sul', 35, '50','Brasil', 'A');
+
+USE `minhacotacaoweb`;
+DROP procedure IF EXISTS `salvar_estado`;
+
+DELIMITER $$
+USE `minhacotacaoweb`$$
+CREATE PROCEDURE `salvar_estado` (
+pidEstado INT, 
+psiglaEstado CHAR(2), 
+pnomeEstado VARCHAR(50), 
+pcodigoEstadoIBGE INT, 
+pcodigoPaisIBGE VARCHAR(50), 
+pnomePais VARCHAR(100), 
+psituacao CHAR(1))
+BEGIN
+	IF pidEstado > 0 THEN    
+		UPDATE estado
+        SET siglaEstado = psiglaEstado, 
+        nomeEstado = pnomeEstado, 
+        codigoEstadoIBGE = pcodigoEstadoIBGE, 
+        codigoPaisIBGE = pcodigoPaisIBGE,
+        nomePais = pnomePais
+        WHERE idEstado = pidEstado;
+	ELSE		
+		insert into estado (siglaEstado, nomeEstado, codigoEstadoIBGE, codigoPaisIBGE, nomePais, situacao) values
+            (psiglaEstado, pnomeEstado, pcodigoEstadoIBGE, pcodigoPaisIBGE, pnomePais, psituacao);
+        
+        SET pidEstado = LAST_INSERT_ID();
+        
+    END IF;
+    
+    SELECT * FROM estado WHERE idestado = pidEstado;
+
+END$$
+
+DELIMITER ;
