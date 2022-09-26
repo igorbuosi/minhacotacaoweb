@@ -186,9 +186,11 @@
     </section>
     <!-- /.content -->
     <script type="text/javascript" language="javascript">       
-    var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/estado";     
+
+      var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/estado";     
+
       function layoutPadraoModal(){
-        document.getElementById('labelSigla').innerHTML = "Sigla";
+          document.getElementById('labelSigla').innerHTML = "Sigla";
           document.getElementById('siglaEstado').classList.remove("is-invalid");
           document.getElementById('labelNome').innerHTML = "Nome";
           document.getElementById('nomeEstado').classList.remove("is-invalid");
@@ -214,8 +216,6 @@
           gravarDados();
         }
       }
-
-   
 
     function gravarDados(){
       layoutPadraoModal();
@@ -317,9 +317,6 @@
             tituloConfirmacao = "Estado inativado com sucesso!";
         }
 
-        console.log(url+"/deletar/"+idEstado);
-
-
         Swal.fire({
             title: 'Você tem certeza?',
             text: titulo,
@@ -370,10 +367,6 @@
 
 
       }
-
-   
-
-
     </script>
 
   

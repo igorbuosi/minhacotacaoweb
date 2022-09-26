@@ -8,8 +8,11 @@ $app = new Slim();
 
 $app->config('debug', true);
 
+
+
 //require_once("functions.php");
-require_once("painel.php");
+require_once("painel-estado.php");
+require_once("painel-marca.php");
 //require_once("admin.php");
 //require_once("admin-categories.php");
 //require_once("admin-users.php");

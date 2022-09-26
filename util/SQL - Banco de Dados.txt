@@ -64,3 +64,51 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+CREATE TABLE `minhacotacaoweb`.`marca` (
+  `idmarca` INT NOT NULL AUTO_INCREMENT,
+  `nomemarca` VARCHAR(100) NOT NULL,
+  `descricaomarca` VARCHAR(500) NULL,
+  PRIMARY KEY (`idmarca`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+ALTER TABLE `minhacotacaoweb`.`marca` 
+ADD COLUMN `situacao` CHAR(1) NULL AFTER `descricaomarca`;
+
+
+USE `minhacotacaoweb`;
+DROP procedure IF EXISTS `salvar_marca`;
+
+DELIMITER $$
+USE `minhacotacaoweb`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `salvar_marca`(
+pidmarca INT, 
+pnomemarca varchar(100), 
+pdescricaomarca VARCHAR(500),
+psituacao char(1))
+BEGIN
+
+	IF pidmarca > 0 THEN    
+		UPDATE marca
+        SET nomemarca = pnomemarca, 
+        descricaomarca = pdescricaomarca
+        WHERE idmarca = pidmarca;
+	ELSE		
+		insert into marca (nomemarca, descricaomarca, situacao) values
+            (pnomemarca, pdescricaomarca, psituacao);
+        
+        SET pidmarca = LAST_INSERT_ID();
+        
+    END IF;
+    
+    SELECT * FROM marca WHERE idmarca = pidmarca;
+
+END$$
+
+DELIMITER ;
+
+
+
+
+

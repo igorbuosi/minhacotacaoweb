@@ -240,13 +240,42 @@
           </li>
 
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
-              <i class="nav-icon far fa-image"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-shopping-bag"></i>
               <p>
-                Gallery
+                Produtos
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/painel/marca" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Marca</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/painel/estado" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Grupo</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/painel/estado" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>SubGrupo</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/painel/estado" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Produto</p>
+                </a>
+              </li>
+
+            </ul>
           </li>
+
 
           
         </ul>
