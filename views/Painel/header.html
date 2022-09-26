@@ -26,7 +26,7 @@
   <!-- summernote -->
   <link rel="stylesheet" href="/views/painel/plugins/summernote/summernote-bs4.min.css">
 
-  <script src="/views/painel/plugins/sweetalert2/sweetalert2.min.js"></script>
+  <script src="/views/painel/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 
   <!-- jQuery -->
 <script src="/views/painel/plugins/jquery/jquery.min.js"></script>
@@ -217,9 +217,9 @@
           <li class="nav-header">Cadastros</li>         
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+              <i class="nav-icon fas fa-map-marker-alt"></i>
               <p>
-                Estado
+                Localização
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -228,6 +228,12 @@
                 <a href="/painel/estado" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Estado</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/painel/cidade" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cidade</p>
                 </a>
               </li>
             </ul>

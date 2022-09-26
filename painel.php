@@ -3,33 +3,36 @@ use Cotacaoweb\PagePainel;
 use Cotacaoweb\Model\Estado;
 
 $app->get('/painel', function() {
-
-	$page = new PagePainel(); // instanciou o construct
+	$page = new PagePainel();
 		$page->setTpl("index");
-		//destrutor é automatico
 });
-
 
 $app->get('/painel/estado', function() {
 	$page = (isset($_GET['page'])) ? $_GET['page'] : 1;
-	$pagination = Estado::listar(true, $page);
+	$search = (isset($_GET['search'])) ? $_GET['search'] : '';
+	$pagination = Estado::listar(true, $search, $page);
 
 	$pages = [];
 
 	for ($x = 0; $x < $pagination['pages']; $x++){
 		array_push($pages, [
 			'href'=>'/painel/estado?'.http_build_query([
-				'page'=>$x+1
+				'page'=>$x+1,
+				'search'=>$search
 			]),
 			'text'=>$x+1
 		]);
 
 	}
 
+	//var_dump($pagination['data']);
+	//exit;
+
 	$page = new PagePainel();
 		$page->setTpl("estado",
 			array(
 			"estados"=>$pagination['data'],
+			"search"=>$search,
 			"pages"=>$pages,
 			"numRegistros"=>count($pagination['data'])
 		));
@@ -54,6 +57,23 @@ $app->post('/painel/estado/cadastrar', function(){
     exit;
 });
 
+$app->get("/painel/estado/:idEstado", function($idEstado){
+	$estado = new Estado();
+	$estado->carregar((int)$idEstado);
+	/*retornar o objeto carregado como json*/
+	echo json_encode($estado->getValues());
+	exit;
+});
+
+$app->get("/painel/estado/deletar/:idEstado", function($idEstado){
+	$estado = new Estado();
+	$estado->carregar((int)$idEstado);
+	$estado->deletar();
+	echo json_encode([
+        'resultado'=>'ok'
+    ]);
+    exit;
+});
 
 
 

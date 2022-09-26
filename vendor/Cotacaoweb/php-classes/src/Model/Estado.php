@@ -5,19 +5,31 @@ use Cotacaoweb\DB\Sql;
 
 class Estado extends Model{    
 
-    public static function listar($paginacao = false, $pagina = 1, $itensporpagina = 10){
+    public static function listar($paginacao = false, $search="", $pagina = 1, $itensporpagina = 10){
         $sql = new Sql();
         //listar com paginação
         if ($paginacao = true){
             $start = ($pagina-1) * $itensporpagina;
 
-            $resultados = $sql->select("
-                select  SQL_CALC_FOUND_ROWS *
-                from estado 
-                order by siglaEstado
-                limit $start, $itensporpagina");
-    
-            $resultadoTotal = $sql->select(" select found_rows() as nrtotal");
+                //validar se está com search da pesquisa na tela
+                if ($search != ""){
+                    $resultados = $sql->select("
+                    select  SQL_CALC_FOUND_ROWS *
+                    from estado 
+                    where siglaestado like :search or nomeestado like :search
+                    order by siglaEstado
+                    limit $start, $itensporpagina", [
+                        ':search'=>'%'.$search.'%'
+                    ]);
+                }else{
+                    $resultados = $sql->select("
+                    select  SQL_CALC_FOUND_ROWS *
+                    from estado 
+                    order by siglaEstado
+                    limit $start, $itensporpagina");
+                }
+
+            $resultadoTotal = $sql->select("select found_rows() as nrtotal");
     
             return [
                 'data'=>$resultados,
@@ -26,7 +38,7 @@ class Estado extends Model{
             ];
             
         }
-       /*somente listar simples - sem validar paginacao*/ 
+        /*somente listar simples - sem validar paginacao*/ 
         if ($paginacao = false){
             return $sql->select("select * from estado order by siglaEstado");
         }        
@@ -46,44 +58,29 @@ class Estado extends Model{
             ));
 
             $this->setData($resultado[0]);
+    }
 
+    public function carregar($idEstado){
+        $sql = new Sql();
+        $results = $sql->select ("select * from estado where idEstado = :idEstado", array(
+            ":idEstado"=>$idEstado
+        ));
+        $this->setData($results[0]);
+    }
+
+    public function deletar(){
+        $sql = new Sql();
+        $situacao = 'A';      
+
+        if ($this->getsituacao() == 'A'){
+            $situacao = 'I';
+        }
+
+        $sql->query("update estado set situacao = :situacao where idEstado = :idEstado", array(
+            ':idEstado'=>$this->getidestado(),
+            ':situacao'=>$situacao
+        ));
     }
 
 }
-
-
-
-
-    /*public function save(){
-        $sql = new Sql();
-        $results = $sql->select("CALL sp_categories_save(:idcategory, :descategory)", 
-        array(
-            ":idcategory"=>$this->getidcategory(),
-            ":descategory"=>$this->getdescategory()
-        ));
-
-        $this->setData($results[0]);
-
-        Category::updateFile();
-
-    }
-
-    public function get($idcategory){
-        $sql = new Sql();
-        $results = $sql->select ("select * from tb_categories where idcategory = :idcategory", array(
-            ":idcategory"=>$idcategory
-        ));
-        $this->setData($results[0]);
-    }
-
-    public function delete(){
-        $sql = new Sql();
-        $sql->query("delete from tb_categories where idcategory = :idcategory",array(
-            ":idcategory"=>$this->getidcategory()
-        ));
-*/
-   
-
-
-
 ?>
