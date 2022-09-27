@@ -148,6 +148,49 @@ END$$
 
 DELIMITER ;
 
+CREATE TABLE `minhacotacaoweb`.`subgrupo` (
+  `idsubgrupo` INT NOT NULL AUTO_INCREMENT,
+  `nomesubgrupo` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `descricaosubgrupo` VARCHAR(200) NULL,
+  `situacao` CHAR(1) NULL,
+  PRIMARY KEY (`idsubgrupo`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+
+USE `minhacotacaoweb`;
+DROP procedure IF EXISTS `salvar_subgrupo`;
+
+DELIMITER $$
+USE `minhacotacaoweb`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `salvar_subgrupo`(
+pidsubgrupo INT, 
+pnomesubgrupo varchar(100), 
+pdescricaosubgrupo VARCHAR(500),
+psituacao char(1))
+BEGIN
+
+	IF pidsubgrupo > 0 THEN    
+		UPDATE subgrupo
+        SET nomesubgrupo = pnomesubgrupo, 
+        descricaosubgrupo = pdescricaosubgrupo
+        WHERE idsubgrupo = pidsubgrupo;
+	ELSE		
+		insert into subgrupo (nomesubgrupo, descricaosubgrupo, situacao) values
+            (pnomesubgrupo, pdescricaosubgrupo, psituacao);
+        
+        SET pidsubgrupo = LAST_INSERT_ID();
+        
+    END IF;
+    
+    SELECT * FROM subgrupo WHERE idsubgrupo = pidsubgrupo;
+
+END$$
+
+DELIMITER ;
+
+
 
 
 

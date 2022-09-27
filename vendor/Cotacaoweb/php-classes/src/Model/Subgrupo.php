@@ -3,10 +3,6 @@ namespace Cotacaoweb\Model;
 use Cotacaoweb\Model;
 use Cotacaoweb\DB\Sql;
 
---------------------------------------------------------
----------------------- PAREI AQUI ----------------------
---------------------------------------------------------
-
 class Subgrupo extends Model{
     public static function listar($paginacao = false, $search="", $pagina = 1, $itensporpagina = 10){
         $sql = new Sql();
@@ -18,17 +14,17 @@ class Subgrupo extends Model{
                 if ($search != ""){
                     $resultados = $sql->select("
                     select  SQL_CALC_FOUND_ROWS *
-                    from grupo 
-                    where nomegrupo like :search or descricaogrupo like :search
-                    order by nomegrupo
+                    from subgrupo 
+                    where nomesubgrupo like :search or descricaosubgrupo like :search
+                    order by nomesubgrupo
                     limit $start, $itensporpagina", [
                         ':search'=>'%'.$search.'%'
                     ]);
                 }else{
                     $resultados = $sql->select("
                     select  SQL_CALC_FOUND_ROWS *
-                    from grupo 
-                    order by nomegrupo
+                    from subgrupo 
+                    order by nomesubgrupo
                     limit $start, $itensporpagina");
                 }
 
@@ -43,17 +39,17 @@ class Subgrupo extends Model{
         }
         /*somente listar simples - sem validar paginacao*/ 
         if ($paginacao = false){
-            return $sql->select("select * from grupo order by nomegrupo");
+            return $sql->select("select * from subgrupo order by nomesubgrupo");
         }        
     }
 
     public function salvar(){
         $sql = new Sql();
 
-            $resultado = $sql->select("call salvar_grupo (:idgrupo, :nomegrupo, :descricaogrupo, :situacao)", array(
-                ":idgrupo"=>$this->getidgrupo(),
-                ":nomegrupo"=>$this->getnomegrupo(), 
-                ":descricaogrupo"=>$this->getdescricaogrupo(),  
+            $resultado = $sql->select("call salvar_subgrupo (:idsubgrupo, :nomesubgrupo, :descricaosubgrupo, :situacao)", array(
+                ":idsubgrupo"=>$this->getidsubgrupo(),
+                ":nomesubgrupo"=>$this->getnomesubgrupo(), 
+                ":descricaosubgrupo"=>$this->getdescricaosubgrupo(),  
                 ":situacao"=>$this->getsituacao()
             ));
 
@@ -62,8 +58,8 @@ class Subgrupo extends Model{
 
     public function carregar($idsubgrupo){
         $sql = new Sql();
-        $results = $sql->select ("select * from subgrupo where idgrupo = :idgrupo", array(
-            ":idgrupo"=>$idsubgrupo
+        $results = $sql->select ("select * from subgrupo where idsubgrupo = :idsubgrupo", array(
+            ":idsubgrupo"=>$idsubgrupo
         ));
         $this->setData($results[0]);
     }
@@ -76,8 +72,8 @@ class Subgrupo extends Model{
             $situacao = 'I';
         }
 
-        $sql->query("update grupo set situacao = :situacao where idgrupo = :idgrupo", array(
-            ':idgrupo'=>$this->getidgrupo(),
+        $sql->query("update subgrupo set situacao = :situacao where idsubgrupo = :idsubgrupo", array(
+            ':idsubgrupo'=>$this->getidsubgrupo(),
             ':situacao'=>$situacao
         ));
     }

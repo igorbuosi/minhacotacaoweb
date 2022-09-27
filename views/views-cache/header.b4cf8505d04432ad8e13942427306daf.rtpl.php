@@ -261,7 +261,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/painel/estado" class="nav-link">
+                <a href="/painel/subgrupo" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>SubGrupo</p>
                 </a>
