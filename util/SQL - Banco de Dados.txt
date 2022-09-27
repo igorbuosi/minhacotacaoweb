@@ -108,6 +108,49 @@ END$$
 
 DELIMITER ;
 
+CREATE TABLE `minhacotacaoweb`.`grupo` (
+  `idgrupo` INT NOT NULL AUTO_INCREMENT,
+  `nomegrupo` VARCHAR(100) NOT NULL,
+  `descricaogrupo` VARCHAR(100) NULL,
+  `situacao` CHAR(1) NULL,
+  PRIMARY KEY (`idgrupo`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+USE `minhacotacaoweb`;
+DROP procedure IF EXISTS `salvar_grupo`;
+
+DELIMITER $$
+USE `minhacotacaoweb`$$
+CREATE PROCEDURE `salvar_grupo` (
+pidgrupo INT, 
+pnomegrupo varchar(100), 
+pdescricaogrupo VARCHAR(500),
+psituacao char(1))
+BEGIN
+
+	IF pidgrupo > 0 THEN    
+		UPDATE grupo
+        SET nomegrupo = pnomegrupo, 
+        descricaogrupo = pdescricaogrupo
+        WHERE idgrupo = pidgrupo;
+	ELSE		
+		insert into grupo (nomegrupo, descricaogrupo, situacao) values
+            (pnomegrupo, pdescricaogrupo, psituacao);
+        
+        SET pidgrupo = LAST_INSERT_ID();
+        
+    END IF;
+    
+    SELECT * FROM grupo WHERE idgrupo = pidgrupo;
+
+END$$
+
+DELIMITER ;
+
+
+
+
 
 
 
