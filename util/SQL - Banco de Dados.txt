@@ -190,6 +190,61 @@ END$$
 
 DELIMITER ;
 
+CREATE TABLE `minhacotacaoweb`.`cidade` (
+  `idcidade` INT NOT NULL AUTO_INCREMENT,
+  `nomecidade` VARCHAR(100) NOT NULL,
+  `ceppadrao` VARCHAR(45) NULL,
+  `codigoibge` INT NULL,
+  `ddd` INT NULL,
+  `situacao` CHAR(1) NULL,
+  `idestado` INT NOT NULL,
+  PRIMARY KEY (`idcidade`),
+  INDEX `fk_estado_idx` (`idestado` ASC),
+  CONSTRAINT `fk_estado`
+    FOREIGN KEY (`idestado`)
+    REFERENCES `minhacotacaoweb`.`estado` (`idestado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+USE `minhacotacaoweb`;
+DROP procedure IF EXISTS `salvar_cidade`;
+
+DELIMITER $$
+USE `minhacotacaoweb`$$
+CREATE PROCEDURE `salvar_cidade` (
+pidcidade int, 
+pnomecidade varchar(100), 
+pceppadrao varchar(45), 
+pcodigoibge int,
+pddd int, 
+psituacao char(1),
+pidestado int)
+BEGIN
+
+	IF pidcidade > 0 THEN    
+		UPDATE cidade
+        SET nomecidade = pnomecidade, 
+        ceppadrao = pceppadrao,
+        codigoibge = pcodigoibge,
+        ddd = pddd,
+        idestado = pidestado      
+        WHERE idcidade = pidcidade;
+	ELSE		
+		insert into cidade (nomecidade,ceppadrao,codigoibge,ddd,situacao,idestado) values
+            (pnomecidade,pceppadrao,pcodigoibge,pddd,psituacao,pidestado);
+        
+        SET pidcidade = LAST_INSERT_ID();
+        
+    END IF;
+    
+    SELECT * FROM cidade WHERE idcidade = pidcidade;
+END$$
+
+DELIMITER ;
+
 
 
 

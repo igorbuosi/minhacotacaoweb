@@ -15,6 +15,7 @@ require_once("EstadoController.php");
 require_once("GrupoController.php");
 require_once("MarcaController.php");
 require_once("Subgrupocontroller.php");
+require_once("CidadeController.php");
 //require_once("admin.php");
 //require_once("admin-categories.php");
 //require_once("admin-users.php");
