@@ -28,6 +28,8 @@
 
   <script src="/views/painel/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 
+  <script src="/views/painel/js/validacoes.js"></script>
+
   <!-- jQuery -->
 <script src="/views/painel/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -43,15 +45,12 @@
     <!-- Parte Esquerda da Barra de Navegação -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index.html" class="nav-link">Home</a>
+          <a class="nav-link active" id="titulopainel"></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contato</a>
-      </li>
-    </ul>
+  </ul>
 
     <!-- Parte direita da barra de navegação -->
     <ul class="navbar-nav ml-auto">
@@ -215,8 +214,8 @@
                with font-awesome or any other icon font library -->
           
           <li class="nav-header">Cadastros</li>         
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item" id="agrupamentolocalizacao">
+            <a href="#" class="nav-link" id="menulocalizacao">
               <i class="nav-icon fas fa-map-marker-alt"></i>
               <p>
                 Localização
@@ -225,13 +224,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/painel/estado" class="nav-link">
+                <a href="/painel/estado" class="nav-link" id="menuestado">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Estado</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/painel/cidade" class="nav-link">
+                <a href="/painel/cidade" class="nav-link" id="menucidade">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cidade</p>
                 </a>
@@ -239,9 +238,9 @@
             </ul>
           </li>
 
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-shopping-bag"></i>
+          <li class="nav-item" id="agrupamentoprodutos">
+            <a href="#" class="nav-link" id="menuprodutos" >
+              <i class="nav-icon fas fa-shopping-bag" ></i>
               <p>
                 Produtos
                 <i class="right fas fa-angle-left"></i>
@@ -249,25 +248,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/painel/marca" class="nav-link">
+                <a href="/painel/marca" class="nav-link" id="menumarca">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Marca</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/painel/grupo" class="nav-link">
+                <a href="/painel/grupo" class="nav-link" id="menugrupo">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Grupo</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/painel/subgrupo" class="nav-link">
+                <a href="/painel/subgrupo" class="nav-link" id="menusubgrupo">
                   <i class="far fa-circle nav-icon"></i>
                   <p>SubGrupo</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/painel/estado" class="nav-link">
+                <a href="/painel/estado" class="nav-link" id="menuproduto">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Produto</p>
                 </a>

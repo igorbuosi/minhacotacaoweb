@@ -48,5 +48,7 @@
 <script src="/views/painel/dist/js/adminlte.js"></script>
 
 <script src="/views/painel/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="/views/painel/js/validacoes.js"></script>
+
 </body>
 </html>

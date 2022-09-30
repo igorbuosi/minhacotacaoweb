@@ -125,7 +125,7 @@
                           </div>
                           <div class="col-sm">
                             <label for="ceppadrao" id="labelcep">CEP</label>
-                            <input type="text" class="form-control" id="ceppadrao" name="ceppadrao" placeholder="Digite o cep da cidade">
+                            <input class="form-control" type="text" name="ceppadrao" id="ceppadrao" value="" placeholder="00000-000" oninput="criaMascaraCEP('ceppadrao')" maxLength="8"/>
                           </div>
                         </div>                      
                       </div>  
@@ -167,9 +167,19 @@
         <!-- /.modal -->
       </section>
       <!-- /.content -->
-      <script type="text/javascript" language="javascript">       
-  
+      <script type="text/javascript" language="javascript">     
         var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/cidade";     
+
+        function menuAtivo() {
+          document.getElementById('titulopainel').innerHTML = "<strong>Cidade</strong>";
+          document.getElementById('menucidade').classList.add("active");
+          document.getElementById('agrupamentolocalizacao').classList.add("menu-open");
+          document.getElementById('menulocalizacao').classList.add("active");
+        }
+
+        $(document).ready(function () {
+            menuAtivo();
+        });
   
         function layoutPadraoModal(){
             document.getElementById('labelnome').innerHTML = "Nome";

@@ -119,11 +119,11 @@
                           <input class="form-control" type="hidden" name="idsubgrupo" id="idsubgrupo" value="" readonly="readonly"/>                   
                           <div class="col-sm">
                             <label for="nomesubgrupo" id="labelnome">Nome</label>
-                            <input type="text" class="form-control" id="nomesubgrupo" name="nomesubgrupo" placeholder="Digite o nome do subgrupo">
+                            <input type="text" class="form-control" maxlength="100"  id="nomesubgrupo" name="nomesubgrupo" placeholder="Digite o nome do subgrupo">
                           </div>
                           <div class="col-sm">
                             <label for="descricaosubgrupo" id="labeldescricao">Descrição</label>
-                            <input type="text" class="form-control" id="descricaosubgrupo" name="descricaosubgrupo" placeholder="Digite a descrição do subgrupo">
+                            <input type="text" class="form-control" maxlength="500"  id="descricaosubgrupo" name="descricaosubgrupo" placeholder="Digite a descrição do subgrupo">
                           </div>
                         </div>                      
                       </div>                      
@@ -146,7 +146,19 @@
       <!-- /.content -->
       <script type="text/javascript" language="javascript">       
   
-        var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/subgrupo";     
+        var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/subgrupo";  
+        
+        function menuAtivo() {
+          document.getElementById('titulopainel').innerHTML = "<strong>Cidade</strong>";
+          document.getElementById('menusubgrupo').classList.add("active");
+          document.getElementById('agrupamentoprodutos').classList.add("menu-open");
+          document.getElementById('menuprodutos').classList.add("active");
+        }
+
+        $(document).ready(function () {
+            menuAtivo();
+        });
+  
   
         function layoutPadraoModal(){
             document.getElementById('labelnome').innerHTML = "Nome";

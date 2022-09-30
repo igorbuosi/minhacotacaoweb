@@ -121,11 +121,11 @@
                           <input class="form-control" type="hidden" name="idmarca" id="idmarca" value="" readonly="readonly"/>                   
                           <div class="col-sm">
                             <label for="nomemarca" id="labelnome">Nome</label>
-                            <input type="text" class="form-control" id="nomemarca" name="nomemarca" placeholder="Digite o nome da marca">
+                            <input type="text" class="form-control" maxlength="100"  id="nomemarca" name="nomemarca" placeholder="Digite o nome da marca">
                           </div>
                           <div class="col-sm">
                             <label for="descricaomarca" id="labelDescrição">Descrição</label>
-                            <input type="text" class="form-control" id="descricaomarca" name="descricaomarca" placeholder="Digite a descrição da marca">
+                            <input type="text" class="form-control" maxlength="500"  id="descricaomarca" name="descricaomarca" placeholder="Digite a descrição da marca">
                           </div>
                         </div>                      
                       </div>                      
@@ -148,7 +148,19 @@
       <!-- /.content -->
       <script type="text/javascript" language="javascript">       
   
-        var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/marca";     
+        var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/marca"; 
+        
+        function menuAtivo() {
+          document.getElementById('titulopainel').innerHTML = "<strong>Marca</strong>";
+          document.getElementById('menumarca').classList.add("active");
+          document.getElementById('agrupamentoprodutos').classList.add("menu-open");
+          document.getElementById('menuprodutos').classList.add("active");
+        }
+
+        $(document).ready(function () {
+            menuAtivo();
+        });
+  
   
         function layoutPadraoModal(){
             document.getElementById('labelnome').innerHTML = "Nome";

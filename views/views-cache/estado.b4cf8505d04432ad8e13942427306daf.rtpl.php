@@ -140,7 +140,7 @@
                         </div>
                         <div class="col-sm">
                           <label for="nomeEstado" id= "labelNome">Nome</label>
-                          <input type="text" class="form-control" id="nomeEstado" name="nomeEstado" placeholder="Digite o nome do estado">
+                          <input type="text" class="form-control" maxlength="50" id="nomeEstado" name="nomeEstado" placeholder="Digite o nome do estado">
                         </div>
                       </div>                      
                     </div>
@@ -149,11 +149,11 @@
                       <div class="form-line row">                    
                         <div class="col-sm">
                           <label for="codigoEstadoIBGE">Código IBGE</label>
-                          <input type="number" class="form-control" id="codigoEstadoIBGE" name="codigoEstadoIBGE" placeholder="Digite o código IBGE do estado">
+                          <input type="number" class="form-control" id="codigoEstadoIBGE" maxlength="7" name="codigoEstadoIBGE" placeholder="Digite o código IBGE do estado">
                         </div>
                         <div class="col-sm">
                           <label for="codigoPaisIBGE">Código País IBGE</label>
-                          <input type="text" class="form-control" id="codigoPaisIBGE" name="codigoPaisIBGE" placeholder="Digite o código IBGE do país">
+                          <input type="text" class="form-control" id="codigoPaisIBGE" maxlength="50"  name="codigoPaisIBGE" placeholder="Digite o código IBGE do país">
                         </div>
                       </div>                      
                     </div>
@@ -162,7 +162,7 @@
                       <div class="form-line row">                    
                         <div class="col-sm">
                           <label for="nomePais">Nome País</label>
-                          <input type="text" class="form-control" id="nomePais" name="nomePais" placeholder="Digite nome do país">
+                          <input type="text" class="form-control" id="nomePais" maxlength="100" name="nomePais" placeholder="Digite nome do país">
                         </div>                       
                       </div>                      
                     </div>                  
@@ -188,6 +188,17 @@
     <script type="text/javascript" language="javascript">       
 
       var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/estado";     
+
+      function menuAtivo() {
+          document.getElementById('titulopainel').innerHTML = "<strong>Estado</strong>";
+          document.getElementById('menuestado').classList.add("active");
+          document.getElementById('agrupamentolocalizacao').classList.add("menu-open");
+          document.getElementById('menulocalizacao').classList.add("active");
+        }
+
+        $(document).ready(function () {
+            menuAtivo();
+        });
 
       function layoutPadraoModal(){
           document.getElementById('labelSigla').innerHTML = "Sigla";

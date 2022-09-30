@@ -245,6 +245,46 @@ END$$
 
 DELIMITER ;
 
+ALTER TABLE `minhacotacaoweb`.`grupo` 
+CHANGE COLUMN `descricaogrupo` `descricaogrupo` VARCHAR(500) NULL DEFAULT NULL ;
+
+
+ALTER TABLE `minhacotacaoweb`.`subgrupo` 
+CHANGE COLUMN `descricaosubgrupo` `descricaosubgrupo` VARCHAR(500) NULL DEFAULT NULL ;
+
+CREATE TABLE `produto` (
+  `idproduto` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(100) NOT NULL,
+  `descricaodetalhada` varchar(500) DEFAULT NULL,
+  `ncm` varchar(10) DEFAULT NULL,
+  `unidademedida` varchar(5) DEFAULT NULL,
+  `datacadastro` datetime NOT NULL,
+  `datainativacao` datetime DEFAULT NULL,
+  `idgrupo` int(11) NOT NULL,
+  `idsubgrupo` int(11) DEFAULT NULL,
+  `idmarca` int(11) NOT NULL,
+  PRIMARY KEY (`idproduto`),
+  KEY `fk_grupo_idx` (`idgrupo`),
+  KEY `fk_subgrupo_idx` (`idsubgrupo`),
+  KEY `fk_marca_idx` (`idmarca`),
+  CONSTRAINT `fk_grupo` FOREIGN KEY (`idgrupo`) REFERENCES `grupo` (`idgrupo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_marca` FOREIGN KEY (`idmarca`) REFERENCES `marca` (`idmarca`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_subgrupo` FOREIGN KEY (`idsubgrupo`) REFERENCES `subgrupo` (`idsubgrupo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
+
+
+exproar triger
+
+
+CREATE TABLE `codigobarraproduto` (
+  `idcodigobarraproduto` int(11) NOT NULL AUTO_INCREMENT,
+  `codigobarra` varchar(45) NOT NULL,
+  `idproduto` int(11) NOT NULL,
+  PRIMARY KEY (`idcodigobarraproduto`),
+  UNIQUE KEY `codigobarra_UNIQUE` (`codigobarra`),
+  KEY `fk_produto_idx` (`idproduto`),
+  CONSTRAINT `fk_produto` FOREIGN KEY (`idproduto`) REFERENCES `produto` (`idproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 
 
