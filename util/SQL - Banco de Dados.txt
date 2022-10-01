@@ -286,6 +286,47 @@ CREATE TABLE `codigobarraproduto` (
   CONSTRAINT `fk_produto` FOREIGN KEY (`idproduto`) REFERENCES `produto` (`idproduto`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
+USE `minhacotacaoweb`;
+DROP procedure IF EXISTS `salvar_produto`;
+
+DELIMITER $$
+USE `minhacotacaoweb`$$
+CREATE PROCEDURE `salvar_produto` (
+pidproduto int, 
+pdescricao varchar(100), 
+pdescricaodetalhada varchar(500), 
+pncm varchar(10), 
+punidademedida varchar(5),
+pidgrupo int, 
+pidsubgrupo int, 
+pidmarca int)
+BEGIN
+
+	IF pidproduto > 0 THEN    
+		UPDATE produto
+        SET descricao = pdescricao, 
+        descricaodetalhada = pdescricaodetalhada,
+        ncm = pncm,
+        unidademedida = punidademedida,
+        idgrupo = pidgrupo,
+        idsubgrupo = pidsubgrupo, 
+        idmarca = pidmarca      
+        WHERE idproduto = pidproduto;
+	ELSE		
+		insert into produto (descricao,descricaodetalhada,ncm,unidademedida,idgrupo,idsubgrupo,idmarca) 
+        values (pdescricao,pdescricaodetalhada,pncm,punidademedida,pidgrupo,pidsubgrupo,pidmarca);
+        
+        SET pidproduto = LAST_INSERT_ID();
+        
+    END IF;
+    
+    SELECT * FROM produto WHERE idproduto = pidproduto;
+END$$
+
+DELIMITER ;
+
+
+
 
 
 

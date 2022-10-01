@@ -149,7 +149,7 @@
         var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/subgrupo";  
         
         function menuAtivo() {
-          document.getElementById('titulopainel').innerHTML = "<strong>Cidade</strong>";
+          document.getElementById('titulopainel').innerHTML = "<strong>Subgrupo</strong>";
           document.getElementById('menusubgrupo').classList.add("active");
           document.getElementById('agrupamentoprodutos').classList.add("menu-open");
           document.getElementById('menuprodutos').classList.add("active");

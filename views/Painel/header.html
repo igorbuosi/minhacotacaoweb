@@ -26,6 +26,10 @@
   <!-- summernote -->
   <link rel="stylesheet" href="/views/painel/plugins/summernote/summernote-bs4.min.css">
 
+    <!-- BS Stepper -->
+    <link rel="stylesheet" href="/views/painel/plugins/bs-stepper/css/bs-stepper.min.css">
+
+
   <script src="/views/painel/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 
   <script src="/views/painel/js/validacoes.js"></script>
@@ -266,7 +270,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/painel/estado" class="nav-link" id="menuproduto">
+                <a href="/painel/produto/cadastrar" class="nav-link" id="menuproduto">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Produto</p>
                 </a>

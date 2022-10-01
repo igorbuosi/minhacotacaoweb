@@ -50,5 +50,8 @@
 <script src="/views/painel/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 <script src="/views/painel/js/validacoes.js"></script>
 
+<!-- BS-Stepper -->
+<script src="/views/painel/plugins/bs-stepper/js/bs-stepper.min.js"></script>
+
 </body>
 </html>
