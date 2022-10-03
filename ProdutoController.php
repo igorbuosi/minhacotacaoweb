@@ -22,7 +22,16 @@ $app->get('/painel/produto/cadastrar', function(){
     exit;
 });
 
+$app->post('/painel/produto/cadastrar', function(){
+	$produto = new Produto();
+	
+	$produto->setData($_POST);
+	
+	$produto->salvar();
 
-
-
- ?>
+	echo json_encode([
+		'resultado'=>'ok',
+		'idproduto'=>$produto->getidproduto()
+    ]);
+    exit;
+});
