@@ -112,23 +112,27 @@
                 <div class="form-group">
                   <div class="form-line row">
                     <div class="col-sm">
-                      <label for="descricaodetalhada" id="labeldescricaodetalhada">Código de Barras</label>
+                      <label for="descricaodetalhada" id="labelcodigobarraproduto">Código de Barras</label>
                       <div class="input-group input-group-mb-3">
-                        <input type="text" class="form-control" place="Digite o código de barras do produto" />
+                        <input type="text" class="form-control" id="codigobarraproduto"
+                          place="Digite o código de barras do produto" />
                         <span class="input-group-append">
-                          <button type="button" onclick="addLinhaCodBarraHTML()"
-                            class="btn btn-primary btn-flat">Adicionar</button>
+                          <button type="button" onclick="validarCamposCodigoBarraProduto()"
+                            class="btn btn-primary btn-flat" id="adicionarcodigobarraproduto">Adicionar</button>
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!-- Loop dos códigos de barras já cadastrados-->
+                <!-- Loop dos códigos de barras já cadastrados
+                <?php $counter1=-1;  if( isset($codigobarraprodutos) && ( is_array($codigobarraprodutos) || $codigobarraprodutos instanceof Traversable ) && sizeof($codigobarraprodutos) ) foreach( $codigobarraprodutos as $key1 => $value1 ){ $counter1++; ?>
+                <div class="form-group">
+                </div>
                 <div id="espacoadd">
                   <div class="form-line row">
                     <div class="col-sm">
                       <div class="input-group input-group-mb-3">
-                        <input type="text" class="form-control" value="789456123" disabled />
+                        <input type="text" class="form-control" id="<?php echo htmlspecialchars( $value1["idcodigobarraproduto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $value1["codigobarra"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" disabled />
                         <span class="input-group-append">
                           <button type="button" class="btn btn-danger btn-flat">Remover</button>
                         </span>
@@ -136,16 +140,22 @@
                     </div>
                   </div>
                 </div>
+                <?php } ?>-->
+                <div id="espacoadd">
+
+                </div>
+
+
 
                 <div class="form-group">
                 </div>
 
-
-                <button class="btn btn-primary" onclick="stepper.previous()">Voltar <i
-                    class="fa fa-arrow-left"></i></button>
-                <button class="btn btn-primary" onclick="stepper.next()">Salvar e continuar
-                  <i class="fa fa-arrow-right"></i></button>
-              </div>
+                  <button class="btn btn-primary" onclick="stepper.previous()">Voltar <i
+                      class="fa fa-arrow-left"></i></button>
+                  <button class="btn btn-primary" onclick="stepper.next()">Salvar e continuar
+                    <i class="fa fa-arrow-right"></i></button>
+                </div>
+              
             </div>
           </div>
           <!-- Fim código de barras -->
@@ -282,11 +292,71 @@
     });
   }
 
-  function addLinhaCodBarraHTML() {
+  function layoutPadraoModalCodigoBarraProduto() {
+    document.getElementById('labelcodigobarraproduto').innerHTML = "Código de Barras";
+    document.getElementById('codigobarraproduto').classList.remove("is-invalid");
+    document.getElementById("adicionarcodigobarraproduto").disabled = false;
+  }
+
+  function validarCamposCodigoBarraProduto() {
+    console.log('Entrei na função de validação de campos do código de barras');
+    layoutPadraoModalCodigoBarraProduto();
+    if (document.getElementById("codigobarraproduto").value == '') {
+      document.getElementById('labelcodigobarraproduto').innerHTML = "<FONT COLOR='red'>O código de barras é obrigatório</FONT>";
+      document.getElementById('codigobarraproduto').classList.remove("is-valid");
+      document.getElementById('codigobarraproduto').classList.add("is-invalid");
+      $("#codigobarraproduto").focus();
+    } else {
+      gravarDadosCodigoBarraProduto();
+    }
+
+  }
+
+  function gravarDadosCodigoBarraProduto() {
+    console.log("entrei na gravarDadosCodigoBarraProduto");
+    document.getElementById("adicionarcodigobarraproduto").disabled = true;
+    var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/codigobarraproduto";
+    var dados = "";
+    dados = "idproduto=" + document.getElementById("idproduto").value
+      + "&codigobarra=" + document.getElementById("codigobarraproduto").value;
+
+    console.log("variavel dados: " + dados);
+
+    $.ajax({
+      asyc: false,
+      type: "POST",
+      url: url + "/cadastrar",
+      data: dados,
+      dataType: "json",
+      error: function (xhr) {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Erro',
+          text: 'Não foi possível salvar o codigo de barras do produto!',
+          showConfirmButton: true,
+          timer: 10000
+        }).then(function () {
+          window.location.href = url;
+          document.getElementById("adicionarcodigobarraproduto").disabled = false; //se der erro habilitar o salvar de novo
+        })
+      },
+      success: function (data) {
+        if (data.resultado == 'ok' && data.idproduto != '' && data.codigobarra != '' && data.idcodigobarraproduto != '') {
+          addLinhaCodBarraHTML(data.idcodigobarraproduto, data.codigobarra);
+          document.getElementById("adicionarcodigobarraproduto").disabled = false;
+        }
+      }
+    });
+
+
+  }
+
+  function addLinhaCodBarraHTML(idcodigobarraproduto, codigobarra) {
     var html = '<div class="form-group"></div><div class="form-line row">'
       + '<div class="col-sm">'
       + '<div class="input-group input-group-mb-3">'
-      + '<input type="text" class="form-control" value = "789456123" disabled/>'
+      + '<input type="text" class="form-control" id="' + idcodigobarraproduto + '" value="' + codigobarra + '" disabled/>'
       + '<span class="input-group-append">'
       + '<button type="button" class="btn btn-danger btn-flat">Remover</button>'
       + '</span></div></div></div> ';

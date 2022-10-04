@@ -326,6 +326,30 @@ END$$
 DELIMITER ;
 
 
+USE `minhacotacaoweb`;
+DROP procedure IF EXISTS `salvar_codigobarraproduto`;
+
+DELIMITER $$
+USE `minhacotacaoweb`$$
+CREATE PROCEDURE `salvar_codigobarraproduto` (
+pidcodigobarraproduto INT, 
+pcodigobarra varchar(45), 
+pidproduto INT)
+BEGIN
+		insert into codigobarraproduto (pcodigobarra, pidproduto) values
+            (codigobarra, idproduto);
+        
+        SET pidcodigobarraproduto = LAST_INSERT_ID();
+        
+
+    
+    SELECT * FROM codigobarraproduto WHERE idcodigobarraproduto = pidcodigobarraproduto;
+end$$
+
+DELIMITER ;
+
+
+
 
 
 

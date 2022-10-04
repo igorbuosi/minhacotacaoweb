@@ -17,14 +17,7 @@ require_once("MarcaController.php");
 require_once("Subgrupocontroller.php");
 require_once("CidadeController.php");
 require_once("ProdutoController.php");
-//require_once("admin.php");
-//require_once("admin-categories.php");
-//require_once("admin-users.php");
-//require_once("admin-products.php");
-//require_once("admin-orders.php");
-
-
-
+require_once("CodigobarraprodutoController.php");
 
 $app->run();
 
