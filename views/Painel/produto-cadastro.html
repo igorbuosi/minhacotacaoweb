@@ -343,7 +343,10 @@
       },
       success: function (data) {
         if (data.resultado == 'ok' && data.idproduto != '' && data.codigobarra != '' && data.idcodigobarraproduto != '') {
+          document.getElementById("codigobarraproduto").value = '';
+          $("#codigobarraproduto").focus();
           addLinhaCodBarraHTML(data.idcodigobarraproduto, data.codigobarra);
+          
           document.getElementById("adicionarcodigobarraproduto").disabled = false;
         }
       }
