@@ -21,9 +21,6 @@ $app->get('/painel/marca', function() {
 
 	}
 
-	//var_dump($pagination['data']);
-	//exit;
-
 	$page = new PagePainel();
 		$page->setTpl("marca",
 			array(

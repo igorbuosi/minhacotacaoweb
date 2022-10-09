@@ -7,7 +7,6 @@ class Codigobarraproduto extends Model{
 
     public static function listar($idproduto = 0){
         $sql = new Sql();
-
         /*somente listar simples - sem validar paginacao*/ 
         if ($idproduto = 0){
             return $sql->select("select * from codigobarraproduto order by codigobarra");
@@ -17,6 +16,15 @@ class Codigobarraproduto extends Model{
             ));
 
         }      
+    }
+
+    public static function buscarProdCodBarra($codigobarra){
+        $sql = new Sql();
+        
+        return $sql->select("select * from codigobarraproduto where codigobarra = :codigobarra", array(
+            ":codigobarra"=>$codigobarra
+        ));
+
     }
 
     public function salvar(){
@@ -38,14 +46,14 @@ class Codigobarraproduto extends Model{
         $this->setData($results[0]);
     }
 
-    public function deletar($idcodigobarraproduto){
+    public function deletar(){
         $sql = new Sql();
         $query = '';    
         
         $query = "delete from codigobarraproduto where idcodigobarraproduto = :idcodigobarraproduto";
 
         $sql->query($query, array(
-            ':idcodigobarraproduto'=>$idcodigobarraproduto
+            ':idcodigobarraproduto'=>$this->getidcodigobarraproduto()
         ));
     }
 

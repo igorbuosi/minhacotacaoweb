@@ -14,18 +14,62 @@ $app->get('/painel/codigobarraproduto/cadastrar', function(){
     exit;
 });
 
+/*$app->get('/painel/codigobarraproduto/buscar', function(){
+
+	$codigobarraproduto = new Codigobarraproduto();
+
+	$pesquisaCodBarra = Codigobarraproduto::buscarProdCodBarra($_GET['codigobarra']);
+
+	var_dump($pesquisaCodBarra[0]['idproduto']);
+	exit;
+});*/
+
 $app->post('/painel/codigobarraproduto/cadastrar', function(){
 	$codigobarraproduto = new Codigobarraproduto();
+
+	$pesquisaCodBarra = Codigobarraproduto::buscarProdCodBarra($_POST['codigobarra']);
+
+	if ((isset($pesquisaCodBarra[0])) && ($pesquisaCodBarra[0]['idproduto'] > 0)){
+		$codigobarraproduto->carregar((int) $pesquisaCodBarra[0]['idcodigobarraproduto']);
+		$codigobarraproduto->getValues();
+		$produto = new Produto();
+		$produto->carregar((int) $pesquisaCodBarra[0]['idproduto']);
+		$produto->getValues();
+
+		echo json_encode([
+			'resultado'=>'N-OK',
+			'idproduto'=>$codigobarraproduto->getidproduto(),
+			'idcodigobarraproduto'=>$codigobarraproduto->getidcodigobarraproduto(),
+			'codigobarra'=>$codigobarraproduto->getcodigobarra(),
+			'descricao'=>$produto->getdescricao()
+		]);
+		exit;
+	}else{	
+		$codigobarraproduto->setData($_POST);		
+		$codigobarraproduto->salvar();
+
+		echo json_encode([
+			'resultado'=>'ok',
+			'idproduto'=>$codigobarraproduto->getidproduto(),
+			'idcodigobarraproduto'=>$codigobarraproduto->getidcodigobarraproduto(),
+			'codigobarra'=>$codigobarraproduto->getcodigobarra()
+		]);
+		
+		exit;
+	}
+});
+
+
+
+$app->POST('/painel/codigobarraproduto/deletar', function(){
+	$codigobarraproduto = new Codigobarraproduto();
 	
-	$codigobarraproduto->setData($_POST);
-	
-	$codigobarraproduto->salvar();
+	$codigobarraproduto->carregar((int) $_POST['idcodigobarraproduto']);
+
+	$codigobarraproduto->deletar();
 
 	echo json_encode([
-		'resultado'=>'ok',
-		'idproduto'=>$codigobarraproduto->getidproduto(),
-        'idcodigobarraproduto'=>$codigobarraproduto->getidcodigobarraproduto(),
-        'codigobarra'=>$codigobarraproduto->getcodigobarra()
+		'resultado'=>'ok'
     ]);
     
     exit;

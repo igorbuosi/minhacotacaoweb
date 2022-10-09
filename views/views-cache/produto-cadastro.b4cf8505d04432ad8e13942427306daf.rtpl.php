@@ -90,7 +90,6 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="form-group">
                   <div class="form-line row">
                     <div class="col-sm">
@@ -150,17 +149,16 @@
                 <div class="form-group">
                 </div>
 
-                  <button class="btn btn-primary" onclick="stepper.previous()">Voltar <i
-                      class="fa fa-arrow-left"></i></button>
-                  <button class="btn btn-primary" onclick="stepper.next()">Salvar e continuar
-                    <i class="fa fa-arrow-right"></i></button>
-                </div>
-              
+                <button class="btn btn-primary" onclick="stepper.previous()">Voltar <i
+                    class="fa fa-arrow-left"></i></button>
+                <button class="btn btn-primary" onclick="stepper.next()">Salvar e continuar
+                  <i class="fa fa-arrow-right"></i></button>
+              </div>
+
             </div>
           </div>
           <!-- Fim código de barras -->
           <!-- Inicio fotos produto -->
-
           <div id="fotos-part" class="content" role="tabpanel" aria-labelledby="fotos-part-trigger">
             <div class="card-body">
               <div class="form-group">
@@ -195,176 +193,6 @@
 </div>
 <!-- /.row -->
 
-<script>
-  // BS-Stepper Init
-  document.addEventListener('DOMContentLoaded', function () {
-    window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-  });
+<!-- Chamar o java script do produto -->
+<script src="/views/painel/js/produto.js"></script>
 
-  function layoutPadraoModal() {
-    document.getElementById('labeldescricao').innerHTML = "Descrição";
-    document.getElementById('labelgrupo').innerHTML = "Grupo";
-    document.getElementById('labelmarca').innerHTML = "Marca";
-    document.getElementById('descricao').classList.remove("is-invalid");
-    document.getElementById('idgrupo').classList.remove("is-invalid");
-    document.getElementById('idmarca').classList.remove("is-invalid");
-    document.getElementById("salvarecontinuar").disabled = false;
-  }
-
-  function validarCampos() {
-    console.log('Entrei na função de validação de campos');
-    layoutPadraoModal();
-    if (document.getElementById("descricao").value == '') {
-      document.getElementById('labeldescricao').innerHTML = "<FONT COLOR='red'>A descrição é obrigatória</FONT>";
-      document.getElementById('descricao').classList.remove("is-valid");
-      document.getElementById('descricao').classList.add("is-invalid");
-      $("#descricao").focus();
-    } else if (document.getElementById("idmarca").value == 0) {
-      document.getElementById('labelmarca').innerHTML = "<FONT COLOR='red'>A marca é obrigatória</FONT>";
-      document.getElementById('idmarca').classList.remove("is-valid");
-      document.getElementById('idmarca').classList.add("is-invalid");
-    } else if (document.getElementById("idgrupo").value == 0) {
-      document.getElementById('labelgrupo').innerHTML = "<FONT COLOR='red'>O grupo é obrigatório</FONT>";
-      document.getElementById('idgrupo').classList.remove("is-valid");
-      document.getElementById('idgrupo').classList.add("is-invalid");
-    } else {
-      gravarDados();
-    }
-  }
-
-
-  function gravarDados() {
-    layoutPadraoModal();
-    document.getElementById("salvarecontinuar").disabled = true; //desabilitar o botão pra nao deixar apertar varias vezes
-    var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/produto";
-    var dados = "";
-    dados = "idproduto=" + document.getElementById("idproduto").value
-      + "&descricao=" + document.getElementById("descricao").value
-      + "&ncm=" + document.getElementById("ncm").value
-      + "&unidademedida=" + document.getElementById("unidademedida").value
-      + "&idmarca=" + document.getElementById("idmarca").value
-      + "&idgrupo=" + document.getElementById("idgrupo").value
-      + "&descricaodetalhada=" + document.getElementById("descricaodetalhada").value;
-
-    if (document.getElementById("idsubgrupo").value != "0") {
-      dados += "&idsubgrupo=" + document.getElementById("idsubgrupo").value;
-    }
-
-
-    console.log("Variavel dados: " + dados);
-    console.log("URL:" + url + "/cadastrar" + dados);
-
-    $.ajax({
-      asyc: false,
-      type: "POST",
-      url: url + "/cadastrar",
-      data: dados,
-      dataType: "json",
-      error: function (xhr) {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Erro',
-          text: 'Não foi possível salvar o produto!',
-          showConfirmButton: true,
-          timer: 10000
-        }).then(function () {
-          window.location.href = window.location.href = url;
-          document.getElementById("salvarecontinuar").disabled = false; //se der erro habilitar o salvar de novo
-        })
-      },
-      success: function (data) {
-        if (data.resultado == 'ok' && data.idproduto != '') {
-          document.getElementById("idproduto").value = data.idproduto; //passar o campo do idproduto cadastrado para o campo do formulario que está escondido.
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Sucesso',
-            text: 'Produto salvo com sucesso',
-            showConfirmButton: true,
-            timer: 10000
-          }).then(function () {
-            stepper.next();
-            layoutPadraoModal();
-          })
-        }
-      }
-    });
-  }
-
-  function layoutPadraoModalCodigoBarraProduto() {
-    document.getElementById('labelcodigobarraproduto').innerHTML = "Código de Barras";
-    document.getElementById('codigobarraproduto').classList.remove("is-invalid");
-    document.getElementById("adicionarcodigobarraproduto").disabled = false;
-  }
-
-  function validarCamposCodigoBarraProduto() {
-    console.log('Entrei na função de validação de campos do código de barras');
-    layoutPadraoModalCodigoBarraProduto();
-    if (document.getElementById("codigobarraproduto").value == '') {
-      document.getElementById('labelcodigobarraproduto').innerHTML = "<FONT COLOR='red'>O código de barras é obrigatório</FONT>";
-      document.getElementById('codigobarraproduto').classList.remove("is-valid");
-      document.getElementById('codigobarraproduto').classList.add("is-invalid");
-      $("#codigobarraproduto").focus();
-    } else {
-      gravarDadosCodigoBarraProduto();
-    }
-
-  }
-
-  function gravarDadosCodigoBarraProduto() {
-    console.log("entrei na gravarDadosCodigoBarraProduto");
-    document.getElementById("adicionarcodigobarraproduto").disabled = true;
-    var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/codigobarraproduto";
-    var dados = "";
-    dados = "idproduto=" + document.getElementById("idproduto").value
-      + "&codigobarra=" + document.getElementById("codigobarraproduto").value;
-
-    console.log("variavel dados: " + dados);
-
-    $.ajax({
-      asyc: false,
-      type: "POST",
-      url: url + "/cadastrar",
-      data: dados,
-      dataType: "json",
-      error: function (xhr) {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Erro',
-          text: 'Não foi possível salvar o codigo de barras do produto!',
-          showConfirmButton: true,
-          timer: 10000
-        }).then(function () {
-          window.location.href = url;
-          document.getElementById("adicionarcodigobarraproduto").disabled = false; //se der erro habilitar o salvar de novo
-        })
-      },
-      success: function (data) {
-        if (data.resultado == 'ok' && data.idproduto != '' && data.codigobarra != '' && data.idcodigobarraproduto != '') {
-          document.getElementById("codigobarraproduto").value = '';
-          $("#codigobarraproduto").focus();
-          addLinhaCodBarraHTML(data.idcodigobarraproduto, data.codigobarra);
-          
-          document.getElementById("adicionarcodigobarraproduto").disabled = false;
-        }
-      }
-    });
-
-
-  }
-
-  function addLinhaCodBarraHTML(idcodigobarraproduto, codigobarra) {
-    var html = '<div class="form-group"></div><div class="form-line row">'
-      + '<div class="col-sm">'
-      + '<div class="input-group input-group-mb-3">'
-      + '<input type="text" class="form-control" id="' + idcodigobarraproduto + '" value="' + codigobarra + '" disabled/>'
-      + '<span class="input-group-append">'
-      + '<button type="button" class="btn btn-danger btn-flat">Remover</button>'
-      + '</span></div></div></div> ';
-    $("#espacoadd").append(html);
-  }
-
-
-</script>

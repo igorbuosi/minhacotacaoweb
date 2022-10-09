@@ -1,0 +1,259 @@
+<!-- Container Principal -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card-header">
+                    <div class="box-header">
+
+                        <div class="box-tools">
+                            <a type="button" href="/painel/produto/cadastrar" class="btn btn-success">
+                                Cadastrar
+                            </a>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header">
+                        
+                        <h3 class="card-title">Listagem de Produtos</h3>
+                        <br>
+                        <div class="card-tools">
+                            <!--<div class="card">-->
+                            <form action="/painel/produto">
+                                <div class="form-line row">
+                                    <div class="col-sm">
+                                        <label  for="search">Código/Descrição</label>
+                                        <input type="text" id = "search" name="search" value="{$search}"
+                                            class="form-control float-right" placeholder="Pesquisar">
+                                    </div>
+                                    <div class="col-sm">
+                                        <label for="codigobarra">Código de Barras</label>
+                                        <input type="text"  id="codigobarra" name="codigobarra" value="{$codigobarra}"
+                                            class="form-control float-right" placeholder="Pesquisar">
+                                    </div>
+                                    <!-- Loop das marcas -->
+                                    <div class="col-sm">
+                                        <label id="labelmarca" for="idmarca">Marca</label>
+                                        <select class="form-control" id="idmarca" name="idmarca">
+                                            <option value="0">Selecione a marca</option>
+                                            {loop="$marcas"}
+                                            <option id="{$value.idmarca}" value="{$value.idmarca}">
+                                                {$value.nomemarca}</option>
+                                            {/loop}
+                                        </select>
+                                    </div>
+                                    <!-- Loop dos grupos -->
+                                    <div class="col-sm">
+                                        <label id="labelgrupo" for="idgrupo">Grupo</label>
+                                        <select class="form-control" id="idgrupo" name="idgrupo">
+                                            <option value="0">Selecione o grupo</option>
+                                            {loop="$grupos"}
+                                            <option id="{$value.idgrupo}" value="{$value.idgrupo}">
+                                                {$value.nomegrupo}</option>
+                                            {/loop}
+                                        </select>
+                                    </div>
+                                    <!-- Loop dos subgrupos -->
+                                    <div class="col-sm">
+                                        <label id="labelsubgrupo" for="idsubgrupo">Subgrupo</label>
+                                        <select class="form-control" id="idsubgrupo" name="idsubgrupo">
+                                            <option  value="0">Selecione o subgrupo</option>
+                                            {loop="$subgrupos"}
+                                            <option id="{$value.idsubgrupo}" value="{$value.idsubgrupo}">
+                                                {$value.nomesubgrupo}</option>
+                                            {/loop}
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm">
+                                        <label id="pesquisar" for="pesquisar">&nbsp;</label>
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-default">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                            &nbsp;
+                                            <a onclick="limparFiltros()" class="btn btn-default">
+                                                <i class="fas fa-eraser"></i>
+                                            </a>
+                                        </div>
+                                        
+                                    </div>
+                                   
+                                </div>
+                            </form>
+                            <!--</div>-->
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-head-fixed text-nowrap table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Descricao</th>
+                                    <th>Grupo</th>
+                                    <th>Marca</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {if="$numRegistros == 0"}
+                                <tr>
+                                    <td>Nenhum registro encontrado</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                {/if}
+                                {loop="$produtos"}
+                                <tr>
+                                    <td>{$value.idproduto}</td>
+                                    <td>{$value.descricao}</td>
+                                    <td>{$value.nomegrupo}</td>
+                                    <td>{$value.nomemarca}</td>
+                                    <td><a href="" data-toggle="modal" data-target="#modal-lg"
+                                            onclick='setDadosModal({$value.idproduto})' class="btn btn-primary btn-block">
+                                            <i class="fa fa-edit"></i>Editar</a>
+                                    </td>
+                                    <td>
+                                        {if="$value.datainativacao != ''"}
+                                        <a class="btn btn-success btn-block"
+                                            onclick="deletar({$value.idproduto}, '{$value.datainativacao}')">
+                                            <i class="fa fa-edit"></i>
+                                            Ativar
+                                        </a>
+                                        {/if}
+                                        {if="$value.datainativacao == ''"}
+                                        <a class="btn btn-danger btn-block"
+                                            onclick="deletar({$value.idproduto}, '{$value.datainativacao}')">
+                                            <i class="fa fa-edit"></i>
+                                            Inativar
+                                        </a>
+                                        {/if}
+                                    </td>
+                                </tr>
+                                {/loop}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+
+
+
+                    <div class="card-footer clearfix">
+                        <ul class="pagination pagination-sm m-0 float-left">
+                            <li class="page-item"><a class="page">Total de registros: {$numRegistros}</a></li>
+                        </ul>
+                        <ul class="pagination pagination-sm m-0 float-right">
+                            {loop="$pages"}
+                            <li class="page-item"><a class="page-link" href="{$value.href}">{$value.text}</a></li>
+                            {/loop}
+                        </ul>
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.card-body -->
+
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+
+        <script>
+            $(document).ready(function () {
+                carregarFiltroSelecionado();
+            });
+
+            function carregarFiltroSelecionado() {
+                var urlParams = new URLSearchParams(window.location.search);
+                var idmarca = urlParams.get("idmarca") != null ? urlParams.get("idmarca") : 0;
+                var idgrupo = urlParams.get("idgrupo") != null ? urlParams.get("idgrupo") : 0;
+                var idsubgrupo = urlParams.get("idsubgrupo") != null ? urlParams.get("idsubgrupo") : 0;
+
+                //setar parametros pegos na url nos selects
+                document.getElementById('idmarca').value = idmarca;
+                document.getElementById('idgrupo').value = idgrupo;
+                document.getElementById('idsubgrupo').value = idsubgrupo;
+            }
+
+            function limparFiltros(){
+                document.getElementById('search').value = "";
+                document.getElementById('codigobarra').value = "";
+                document.getElementById('idmarca').value = 0;
+                document.getElementById('idgrupo').value = 0;
+                document.getElementById('idsubgrupo').value = 0;
+
+            }
+
+    function deletar(idproduto, datainativacao) {
+        var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/produto";
+    var titulo = "";
+    var tituloConfirmacao = "";
+    var confirmButtonText = "";
+
+    if (datainativacao == '') {
+      titulo = "Você deseja realmente ativar o produto?";
+      confirmButtonText = "Sim, ative o produto!";
+      tituloConfirmacao = "Produto ativado com sucesso!";
+
+    } else {
+      titulo = "Você deseja realmente inativar o produto?";
+      confirmButtonText = "Sim, inative o produto!";
+      tituloConfirmacao = "Produto inativado com sucesso!";
+    }
+
+    Swal.fire({
+      title: 'Você tem certeza?',
+      text: titulo,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: confirmButtonText,
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.getJSON({
+          type: 'GET',
+          url: url + "/deletar/" + idproduto,
+          success:
+            function (data) {
+              if (data.resultado == 'ok') {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Sucesso',
+                  text: tituloConfirmacao,
+                  showConfirmButton: true,
+                  timer: 10000
+                }).then(function () {
+                  window.location.href = window.location.href = url;
+                })
+              } else {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Erro',
+                  text: 'Não foi possível ativar/inativar produto!',
+                  showConfirmButton: true,
+                  timer: 10000
+                }).then(function () {
+                  window.location.href = window.location.href = url;
+                })
+              }
+            },
+          error:
+            function (data) {
+              window.location.href = window.location.href = url;
+            }
+        });
+      };
+    });
+
+
+  }
+
+        </script>
