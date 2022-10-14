@@ -38,20 +38,20 @@
               <div class="card-body">
                 <div class="form-group">
                   <div class="form-line row">
-                    <input class="form-control" type="hidden" name="idproduto" id="idproduto" value=""
+                    <input class="form-control" type="hidden" name="idproduto" id="idproduto" value="{$produto.idproduto}"
                       readonly="readonly">
                     <div class="col-6">
                       <label for="descricao" id="labeldescricao">Descrição</label>
-                      <input type="text" class="form-control" maxlength="100" id="descricao" name="descricao"
+                      <input type="text" class="form-control" maxlength="100"  value="{$produto.descricao}" id="descricao" name="descricao"
                         placeholder="Digite a descrição resumida do produto">
                     </div>
                     <div class="col-4">
                       <label for="ncm" id="labelncm">NCM</label>
-                      <input class="form-control" type="text" name="ncm" id="ncm" value="" maxLength="8" />
+                      <input class="form-control" type="text" name="ncm" id="ncm"  value="{$produto.ncm}" maxLength="8" />
                     </div>
                     <div class="col-2">
                       <label for="unidademedida" id="labelunidademedida">Unidade Medida</label>
-                      <input class="form-control" type="text" name="unidademedida" id="unidademedida" maxLength="5" />
+                      <input class="form-control" type="text" name="unidademedida"  value="{$produto.unidademedida}" id="unidademedida" maxLength="5" />
                     </div>
 
                   </div>
@@ -64,7 +64,10 @@
                       <select class="form-control" id="idmarca" name="idmarca">
                         <option id="0" value="0">Selecione a marca</option>
                         {loop="$marcas"}
-                        <option id="{$value.idmarca}" value="{$value.idmarca}">{$value.nomemarca}</option>
+                          <option id="{$value.idmarca}" value="{$value.idmarca}"  
+                              {if="$value.idmarca == $produto.idmarca"} selected {/if} >
+                              {$value.nomemarca}
+                          </option>
                         {/loop}
                       </select>
                     </div>
@@ -74,7 +77,9 @@
                       <select class="form-control" id="idgrupo" name="idgrupo">
                         <option id="0" value="0">Selecione o grupo</option>
                         {loop="$grupos"}
-                        <option id="{$value.idgrupo}" value="{$value.idgrupo}">{$value.nomegrupo}</option>
+                        <option id="{$value.idgrupo}" value="{$value.idgrupo}"
+                        {if="$value.idgrupo == $produto.idgrupo"} selected {/if} >
+                        {$value.nomegrupo}</option>
                         {/loop}
                       </select>
                     </div>
@@ -84,7 +89,9 @@
                       <select class="form-control" id="idsubgrupo" name="idsubgrupo">
                         <option id="0" value="0">Selecione o subgrupo</option>
                         {loop="$subgrupos"}
-                        <option id="{$value.idsubgrupo}" value="{$value.idsubgrupo}">{$value.nomesubgrupo}</option>
+                        <option id="{$value.idsubgrupo}" value="{$value.idsubgrupo}"
+                          {if="$value.idsubgrupo == $produto.idsubgrupo"} selected {/if} >
+                          {$value.nomesubgrupo}</option>
                         {/loop}
                       </select>
                     </div>
@@ -95,7 +102,7 @@
                     <div class="col-sm">
                       <label for="descricaodetalhada" id="labeldescricaodetalhada">Descrição detalhada</label>
                       <textarea class="form-control" id="descricaodetalhada" name="descricaodetalhada" rows="3"
-                        placeholder="Digite a descrição detalhada" maxlength="500"></textarea>
+                      placeholder="Digite a descrição detalhada" maxlength="500">{if="$produto.descricaodetalhada != ''"}{$produto.descricaodetalhada}{/if}</textarea>
                     </div>
                   </div>
                 </div>
@@ -141,11 +148,7 @@
                 </div>
                 {/loop}-->
                 <div id="espacoadd">
-
                 </div>
-
-
-
                 <div class="form-group">
                 </div>
 

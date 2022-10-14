@@ -56,6 +56,28 @@ $app->get('/painel/produto', function(){
     exit;
 });
 
+$app->get('/painel/produto/:idproduto', function($idproduto){
+	$produto = new Produto();
+	
+	$produto->carregar((int) $idproduto);
+
+
+	$grupos = Grupo::listar(false);
+	$subgrupos = Subgrupo::listar(false);
+	$marcas = Marca::listar(false);
+
+	
+	$page = new PagePainel();
+		$page->setTpl("produto-cadastro",
+		array(
+		"produto"=>$produto->getValues(),
+		"grupos"=>$grupos['data'],
+		"subgrupos"=>$subgrupos['data'],
+		"marcas"=>$marcas['data']));
+    exit;
+});
+
+
 $app->get('/painel/produto/cadastrar', function(){
 
 	$grupos = Grupo::listar(false);
@@ -66,6 +88,7 @@ $app->get('/painel/produto/cadastrar', function(){
 	$page = new PagePainel();
 		$page->setTpl("produto-cadastro",
 		array(
+		"produto"=>"",
 		"grupos"=>$grupos['data'],
 		"subgrupos"=>$subgrupos['data'],
 		"marcas"=>$marcas['data']));

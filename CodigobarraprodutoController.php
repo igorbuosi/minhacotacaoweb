@@ -14,15 +14,15 @@ $app->get('/painel/codigobarraproduto/cadastrar', function(){
     exit;
 });
 
-/*$app->get('/painel/codigobarraproduto/buscar', function(){
+$app->get('/painel/codigobarraproduto/buscar/:idproduto', function($idproduto){
 
 	$codigobarraproduto = new Codigobarraproduto();
 
-	$pesquisaCodBarra = Codigobarraproduto::buscarProdCodBarra($_GET['codigobarra']);
+	$pesquisaCodBarra = Codigobarraproduto::buscarCodBarraProd($idproduto);
 
-	var_dump($pesquisaCodBarra[0]['idproduto']);
+	echo json_encode($pesquisaCodBarra);
 	exit;
-});*/
+});
 
 $app->post('/painel/codigobarraproduto/cadastrar', function(){
 	$codigobarraproduto = new Codigobarraproduto();

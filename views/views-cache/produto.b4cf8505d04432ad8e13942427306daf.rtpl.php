@@ -115,9 +115,8 @@
                                     <td><?php echo htmlspecialchars( $value1["descricao"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                     <td><?php echo htmlspecialchars( $value1["nomegrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                     <td><?php echo htmlspecialchars( $value1["nomemarca"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                                    <td><a href="" data-toggle="modal" data-target="#modal-lg"
-                                            onclick='setDadosModal(<?php echo htmlspecialchars( $value1["idproduto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>)' class="btn btn-primary btn-block">
-                                            <i class="fa fa-edit"></i>Editar</a>
+                                    <td>
+                                        <a href="/painel/produto/<?php echo htmlspecialchars( $value1["idproduto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-block"><i class="fa fa-edit"></i> Editar</a>
                                     </td>
                                     <td>
                                         <?php if( $value1["datainativacao"] != '' ){ ?>

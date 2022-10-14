@@ -115,9 +115,8 @@
                                     <td>{$value.descricao}</td>
                                     <td>{$value.nomegrupo}</td>
                                     <td>{$value.nomemarca}</td>
-                                    <td><a href="" data-toggle="modal" data-target="#modal-lg"
-                                            onclick='setDadosModal({$value.idproduto})' class="btn btn-primary btn-block">
-                                            <i class="fa fa-edit"></i>Editar</a>
+                                    <td>
+                                        <a href="/painel/produto/{$value.idproduto}" class="btn btn-primary btn-block"><i class="fa fa-edit"></i> Editar</a>
                                     </td>
                                     <td>
                                         {if="$value.datainativacao != ''"}

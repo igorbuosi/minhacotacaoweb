@@ -27,6 +27,15 @@ class Codigobarraproduto extends Model{
 
     }
 
+    public static function buscarCodBarraProd($idproduto){
+        $sql = new Sql();
+        
+        return $sql->select("select * from codigobarraproduto where idproduto = :idproduto", array(
+            ":idproduto"=>$idproduto
+        ));
+
+    }
+
     public function salvar(){
         $sql = new Sql();
             $resultado = $sql->select("call salvar_codigobarraproduto (:idcodigobarraproduto,:codigobarra, :idproduto)", array(         
