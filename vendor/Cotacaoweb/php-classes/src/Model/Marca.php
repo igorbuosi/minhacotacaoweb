@@ -61,7 +61,10 @@ class Marca extends Model{
         $results = $sql->select ("select * from marca where idmarca = :idmarca", array(
             ":idmarca"=>$idmarca
         ));
-        $this->setData($results[0]);
+        
+        if (isset($results[0])){
+            $this->setData($results[0]);
+        }
     }
 
     public function deletar(){

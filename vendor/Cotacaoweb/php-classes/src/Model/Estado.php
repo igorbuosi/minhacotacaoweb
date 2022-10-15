@@ -65,7 +65,10 @@ class Estado extends Model{
         $results = $sql->select ("select * from estado where idEstado = :idEstado", array(
             ":idEstado"=>$idEstado
         ));
-        $this->setData($results[0]);
+        
+        if (isset($results[0])){
+            $this->setData($results[0]);
+        }
     }
 
     public function deletar(){

@@ -1,7 +1,19 @@
 // BS-Stepper Init
+$(document).ready(function () {
+  menuAtivo();
+});
+
+
 document.addEventListener('DOMContentLoaded', function () {
   window.stepper = new Stepper(document.querySelector('.bs-stepper'))
 });
+
+function menuAtivo() {
+  document.getElementById('titulopainel').innerHTML = "<strong>Produto</strong>";
+  document.getElementById('menuprodutos').classList.add("active");
+  document.getElementById('agrupamentoprodutos').classList.add("menu-open");
+  document.getElementById('menuproduto').classList.add("active");
+}
 
 function layoutPadraoModal() {
   document.getElementById('labeldescricao').innerHTML = "Descrição";
@@ -73,7 +85,6 @@ function gravarDados() {
     success: function (data) {
       if (data.resultado == 'ok' && data.idproduto != '') {
         document.getElementById("idproduto").value = data.idproduto; //passar o campo do idproduto cadastrado para o campo do formulario que está escondido.
-        buscarCodigoBarraProduto(data.idproduto);
         stepper.next();
         layoutPadraoModal();
       }
@@ -101,7 +112,7 @@ function validarCamposCodigoBarraProduto() {
 
 }
 
-function buscarCodigoBarraProduto(idproduto) {
+/*function buscarCodigoBarraProduto(idproduto) {
   $.getJSON({
     asyc: false,
     type: "GET",
@@ -116,7 +127,7 @@ function buscarCodigoBarraProduto(idproduto) {
 
     }
   });
-}
+}*/
 
 function gravarDadosCodigoBarraProduto() {
   console.log("entrei na gravarDadosCodigoBarraProduto");
@@ -125,8 +136,6 @@ function gravarDadosCodigoBarraProduto() {
   var dados = "";
   dados = "idproduto=" + document.getElementById("idproduto").value
     + "&codigobarra=" + document.getElementById("codigobarraproduto").value;
-
-  console.log("variavel dados: " + dados);
 
   $.ajax({
     asyc: false,

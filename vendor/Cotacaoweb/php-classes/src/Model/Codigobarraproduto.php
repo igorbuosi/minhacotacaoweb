@@ -52,7 +52,9 @@ class Codigobarraproduto extends Model{
         $results = $sql->select ("select * from codigobarraproduto where idcodigobarraproduto = :idcodigobarraproduto", array(
             ":idcodigobarraproduto"=>$idcodigobarraproduto
         ));
-        $this->setData($results[0]);
+        if (isset($results[0])){
+            $this->setData($results[0]);
+        }
     }
 
     public function deletar(){

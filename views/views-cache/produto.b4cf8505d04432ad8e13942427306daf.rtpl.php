@@ -20,7 +20,7 @@
                 <div class="card">
 
                     <div class="card-header">
-                        
+
                         <h3 class="card-title">Listagem de Produtos</h3>
                         <br>
                         <div class="card-tools">
@@ -28,13 +28,13 @@
                             <form action="/painel/produto">
                                 <div class="form-line row">
                                     <div class="col-sm">
-                                        <label  for="search">Código/Descrição</label>
-                                        <input type="text" id = "search" name="search" value="<?php echo htmlspecialchars( $search, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                                        <label for="search">Código/Descrição</label>
+                                        <input type="text" id="search" name="search" value="<?php echo htmlspecialchars( $search, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
                                             class="form-control float-right" placeholder="Pesquisar">
                                     </div>
                                     <div class="col-sm">
                                         <label for="codigobarra">Código de Barras</label>
-                                        <input type="text"  id="codigobarra" name="codigobarra" value="<?php echo htmlspecialchars( $codigobarra, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                                        <input type="text" id="codigobarra" name="codigobarra" value="<?php echo htmlspecialchars( $codigobarra, ENT_COMPAT, 'UTF-8', FALSE ); ?>"
                                             class="form-control float-right" placeholder="Pesquisar">
                                     </div>
                                     <!-- Loop das marcas -->
@@ -63,7 +63,7 @@
                                     <div class="col-sm">
                                         <label id="labelsubgrupo" for="idsubgrupo">Subgrupo</label>
                                         <select class="form-control" id="idsubgrupo" name="idsubgrupo">
-                                            <option  value="0">Selecione o subgrupo</option>
+                                            <option value="0">Selecione o subgrupo</option>
                                             <?php $counter1=-1;  if( isset($subgrupos) && ( is_array($subgrupos) || $subgrupos instanceof Traversable ) && sizeof($subgrupos) ) foreach( $subgrupos as $key1 => $value1 ){ $counter1++; ?>
                                             <option id="<?php echo htmlspecialchars( $value1["idsubgrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $value1["idsubgrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
                                                 <?php echo htmlspecialchars( $value1["nomesubgrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
@@ -82,9 +82,9 @@
                                                 <i class="fas fa-eraser"></i>
                                             </a>
                                         </div>
-                                        
+
                                     </div>
-                                   
+
                                 </div>
                             </form>
                             <!--</div>-->
@@ -116,7 +116,8 @@
                                     <td><?php echo htmlspecialchars( $value1["nomegrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                     <td><?php echo htmlspecialchars( $value1["nomemarca"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                     <td>
-                                        <a href="/painel/produto/<?php echo htmlspecialchars( $value1["idproduto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-block"><i class="fa fa-edit"></i> Editar</a>
+                                        <a href="/painel/produto/<?php echo htmlspecialchars( $value1["idproduto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                                            class="btn btn-primary btn-block"><i class="fa fa-edit"></i> Editar</a>
                                     </td>
                                     <td>
                                         <?php if( $value1["datainativacao"] != '' ){ ?>
@@ -140,9 +141,6 @@
                         </table>
                     </div>
                     <!-- /.card-body -->
-
-
-
                     <div class="card-footer clearfix">
                         <ul class="pagination pagination-sm m-0 float-left">
                             <li class="page-item"><a class="page">Total de registros: <?php echo htmlspecialchars( $numRegistros, ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
@@ -164,7 +162,15 @@
         <script>
             $(document).ready(function () {
                 carregarFiltroSelecionado();
+                menuAtivo();
             });
+            
+            function menuAtivo() {
+                document.getElementById('titulopainel').innerHTML = "<strong>Produto</strong>";
+                document.getElementById('menuprodutos').classList.add("active");
+                document.getElementById('agrupamentoprodutos').classList.add("menu-open");
+                document.getElementById('menuproduto').classList.add("active");
+            }
 
             function carregarFiltroSelecionado() {
                 var urlParams = new URLSearchParams(window.location.search);
@@ -178,7 +184,7 @@
                 document.getElementById('idsubgrupo').value = idsubgrupo;
             }
 
-            function limparFiltros(){
+            function limparFiltros() {
                 document.getElementById('search').value = "";
                 document.getElementById('codigobarra').value = "";
                 document.getElementById('idmarca').value = 0;
@@ -187,72 +193,67 @@
 
             }
 
-    function deletar(idproduto, datainativacao) {
-        var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/produto";
-    var titulo = "";
-    var tituloConfirmacao = "";
-    var confirmButtonText = "";
+            function deletar(idproduto, datainativacao) {
+                var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/produto";
+                var titulo = "";
+                var tituloConfirmacao = "";
+                var confirmButtonText = "";
 
-    if (datainativacao == '') {
-      titulo = "Você deseja realmente ativar o produto?";
-      confirmButtonText = "Sim, ative o produto!";
-      tituloConfirmacao = "Produto ativado com sucesso!";
-
-    } else {
-      titulo = "Você deseja realmente inativar o produto?";
-      confirmButtonText = "Sim, inative o produto!";
-      tituloConfirmacao = "Produto inativado com sucesso!";
-    }
-
-    Swal.fire({
-      title: 'Você tem certeza?',
-      text: titulo,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: confirmButtonText,
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        $.getJSON({
-          type: 'GET',
-          url: url + "/deletar/" + idproduto,
-          success:
-            function (data) {
-              if (data.resultado == 'ok') {
+                if (datainativacao == '') {
+                    titulo = "Você deseja realmente ativar o produto?";
+                    confirmButtonText = "Sim, ative o produto!";
+                    tituloConfirmacao = "Produto ativado com sucesso!";
+                } else {
+                    titulo = "Você deseja realmente inativar o produto?";
+                    confirmButtonText = "Sim, inative o produto!";
+                    tituloConfirmacao = "Produto inativado com sucesso!";
+                }
                 Swal.fire({
-                  position: 'center',
-                  icon: 'success',
-                  title: 'Sucesso',
-                  text: tituloConfirmacao,
-                  showConfirmButton: true,
-                  timer: 10000
-                }).then(function () {
-                  window.location.href = window.location.href = url;
-                })
-              } else {
-                Swal.fire({
-                  position: 'center',
-                  icon: 'error',
-                  title: 'Erro',
-                  text: 'Não foi possível ativar/inativar produto!',
-                  showConfirmButton: true,
-                  timer: 10000
-                }).then(function () {
-                  window.location.href = window.location.href = url;
-                })
-              }
-            },
-          error:
-            function (data) {
-              window.location.href = window.location.href = url;
+                    title: 'Você tem certeza?',
+                    text: titulo,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: confirmButtonText,
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.getJSON({
+                            type: 'GET',
+                            url: url + "/deletar/" + idproduto,
+                            success:
+                                function (data) {
+                                    if (data.resultado == 'ok') {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: 'Sucesso',
+                                            text: tituloConfirmacao,
+                                            showConfirmButton: true,
+                                            timer: 10000
+                                        }).then(function () {
+                                            window.location.href = window.location.href;
+                                        })
+                                    } else {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'error',
+                                            title: 'Erro',
+                                            text: 'Não foi possível ativar/inativar produto!',
+                                            showConfirmButton: true,
+                                            timer: 10000
+                                        }).then(function () {
+                                            window.location.href = window.location.href;
+                                        })
+                                    }
+                                },
+                            error:
+                                function (data) {
+                                    window.location.href = window.location.href;
+                                }
+                        });
+                    };
+                });
             }
-        });
-      };
-    });
-
-
-  }
-
         </script>

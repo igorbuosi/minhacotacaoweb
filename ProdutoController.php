@@ -5,6 +5,7 @@ use Cotacaoweb\PagePainel;
 use Cotacaoweb\Model\Produto;
 use Cotacaoweb\Model\Subgrupo;
 use Cotacaoweb\Model\Grupo;
+use Cotacaoweb\Model\Codigobarraproduto;
 
 $app->get('/painel/produto', function(){
 	/*LISTAR OS SELECTS DOS CADASTROS NOS FILTROS */
@@ -15,7 +16,6 @@ $app->get('/painel/produto', function(){
 	/*FILTROS DA PAGINACAO*/
 	$pages = [];
 	$page = (isset($_GET['page'])) ? $_GET['page'] : 1;
-
 
 	/*codigo/descricao*/
 	$search = (isset($_GET['search'])) ? $_GET['search'] : '';
@@ -56,42 +56,43 @@ $app->get('/painel/produto', function(){
     exit;
 });
 
-$app->get('/painel/produto/:idproduto', function($idproduto){
-	$produto = new Produto();
-	
-	$produto->carregar((int) $idproduto);
-
+$app->get('/painel/produto/cadastrar', function(){
 
 	$grupos = Grupo::listar(false);
 	$subgrupos = Subgrupo::listar(false);
 	$marcas = Marca::listar(false);
-
+	$produto = Produto::objVazio(); //criado o objeto vazio pois é a rota de cadastrar
 	
 	$page = new PagePainel();
 		$page->setTpl("produto-cadastro",
 		array(
 		"produto"=>$produto->getValues(),
+		"codigobarraprodutos"=>"",
 		"grupos"=>$grupos['data'],
 		"subgrupos"=>$subgrupos['data'],
 		"marcas"=>$marcas['data']));
     exit;
 });
 
-
-$app->get('/painel/produto/cadastrar', function(){
-
+$app->get('/painel/produto/:idproduto', function($idproduto){
+	$produto = new Produto();
+	$produto->carregar((int) $idproduto);
 	$grupos = Grupo::listar(false);
 	$subgrupos = Subgrupo::listar(false);
 	$marcas = Marca::listar(false);
 
-	
+	$codigobarraproduto = new Codigobarraproduto();
+	$pesquisaCodBarra = Codigobarraproduto::buscarCodBarraProd($produto->getidproduto());
+
 	$page = new PagePainel();
 		$page->setTpl("produto-cadastro",
 		array(
-		"produto"=>"",
+		"produto"=>$produto->getValues(),
 		"grupos"=>$grupos['data'],
 		"subgrupos"=>$subgrupos['data'],
-		"marcas"=>$marcas['data']));
+		"marcas"=>$marcas['data'],
+		"codigobarraprodutos"=>$pesquisaCodBarra)
+	);
     exit;
 });
 
@@ -108,7 +109,6 @@ $app->post('/painel/produto/cadastrar', function(){
     ]);
     exit;
 });
-
 
 $app->get("/painel/produto/deletar/:idproduto", function($idproduto){
 	$produto = new Produto();

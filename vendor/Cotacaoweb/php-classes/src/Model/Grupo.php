@@ -61,7 +61,10 @@ class Grupo extends Model{
         $results = $sql->select ("select * from grupo where idgrupo = :idgrupo", array(
             ":idgrupo"=>$idgrupo
         ));
-        $this->setData($results[0]);
+        
+        if (isset($results[0])){
+            $this->setData($results[0]);
+        }
     }
 
     public function deletar(){

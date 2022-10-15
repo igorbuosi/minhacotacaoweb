@@ -3,7 +3,7 @@ use Cotacaoweb\Model\Codigobarraproduto;
 use Cotacaoweb\PagePainel;
 use Cotacaoweb\Model\Produto;
 
-$app->get('/painel/codigobarraproduto/cadastrar', function(){
+/*$app->get('/painel/codigobarraproduto/cadastrar', function(){
 
     $codigobarraproduto = Codigobarraproduto::listar();
 	
@@ -14,6 +14,7 @@ $app->get('/painel/codigobarraproduto/cadastrar', function(){
     exit;
 });
 
+/*nao vai mais precisar desse metodo*/
 $app->get('/painel/codigobarraproduto/buscar/:idproduto', function($idproduto){
 
 	$codigobarraproduto = new Codigobarraproduto();
@@ -29,6 +30,7 @@ $app->post('/painel/codigobarraproduto/cadastrar', function(){
 
 	$pesquisaCodBarra = Codigobarraproduto::buscarProdCodBarra($_POST['codigobarra']);
 
+	/*validacao se a ja existe o codigo de barra cadastrado*/
 	if ((isset($pesquisaCodBarra[0])) && ($pesquisaCodBarra[0]['idproduto'] > 0)){
 		$codigobarraproduto->carregar((int) $pesquisaCodBarra[0]['idcodigobarraproduto']);
 		$codigobarraproduto->getValues();

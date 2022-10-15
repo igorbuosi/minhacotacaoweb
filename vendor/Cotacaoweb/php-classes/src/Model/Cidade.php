@@ -70,7 +70,10 @@ class Cidade extends Model{
         $results = $sql->select ("select * from cidade where idcidade = :idcidade", array(
             ":idcidade"=>$idcidade
         ));
-        $this->setData($results[0]);
+        
+        if (isset($results[0])){
+            $this->setData($results[0]);
+        }
     }
 
     public function deletar(){

@@ -89,7 +89,10 @@ class Produto extends Model
         $results = $sql->select("select * from produto where idproduto = :idproduto", array(
             ":idproduto" => $idproduto
         ));
-        $this->setData($results[0]);
+
+        if (isset($results[0])){
+            $this->setData($results[0]);
+        }
     }
 
     public function deletar()
@@ -106,5 +109,18 @@ class Produto extends Model
         $sql->query($query, array(
             ':idproduto' => $this->getidproduto()
         ));
+    }
+
+    public static function objVazio(){
+    $oProdutoVazio = new Produto();
+	$oProdutoVazio->setidproduto(0);
+	$oProdutoVazio->setdescricao("");
+	$oProdutoVazio->setdescricaodetalhada("");
+	$oProdutoVazio->setncm("");
+	$oProdutoVazio->setunidademedida("");
+	$oProdutoVazio->setidgrupo(0);
+	$oProdutoVazio->setidsubgrupo(0);
+	$oProdutoVazio->setidmarca(0);
+    return $oProdutoVazio;
     }
 }
