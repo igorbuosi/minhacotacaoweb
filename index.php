@@ -5,9 +5,7 @@ use \Slim\Slim;
 
 
 $app = new Slim();
-
 $app->config('debug', true);
-
 
 
 //require_once("functions.php");
