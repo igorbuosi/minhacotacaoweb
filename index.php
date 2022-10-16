@@ -16,8 +16,10 @@ require_once("Subgrupocontroller.php");
 require_once("CidadeController.php");
 require_once("ProdutoController.php");
 require_once("CodigobarraprodutoController.php");
-require_once("HomeController.php");
 
+//home
+require_once("HomeController.php");
+require_once("EmpresaController.php");
 $app->run();
 
  ?>

@@ -348,7 +348,40 @@ end$$
 
 DELIMITER ;
 
+CREATE TABLE `minhacotacaoweb`.`pessoa` (
+  `idpessoa` INT NOT NULL AUTO_INCREMENT,
+  `nomecompleto` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `datainsert` DATETIME NOT NULL,
+  `ceppessoa` VARCHAR(10) CHARACTER SET 'utf8' NOT NULL,
+  `endereco` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `numendereco` VARCHAR(10) CHARACTER SET 'utf8' NOT NULL,
+  `bairro` VARCHAR(50) CHARACTER SET 'utf8' NOT NULL,
+  `complemento` VARCHAR(45) CHARACTER SET 'utf8' NULL,
+  `email` VARCHAR(100) NULL,
+  `site` VARCHAR(45) NULL,
+  `login` VARCHAR(45) CHARACTER SET 'utf8' NOT NULL,
+  `senha` VARCHAR(45) CHARACTER SET 'utf8' NOT NULL,
+  `tipopessoa` CHAR(1) NOT NULL,
+  `tel1` VARCHAR(15) CHARACTER SET 'utf8' NOT NULL,
+  `tel2` VARCHAR(15) CHARACTER SET 'utf8' NULL,
+  `fotoperfil` BLOB NULL,
+  `idcidade` INT NOT NULL,
+  PRIMARY KEY (`idpessoa`),
+  UNIQUE INDEX `login_UNIQUE` (`login` ASC),
+  INDEX `fk_cidade_idx` (`idcidade` ASC),
+  CONSTRAINT `fk_cidade`
+    FOREIGN KEY (`idcidade`)
+    REFERENCES `minhacotacaoweb`.`cidade` (`idcidade`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
+CREATE DEFINER=`root`@`localhost` TRIGGER `minhacotacaoweb`.`pessoa_datacadastro` BEFORE INSERT ON `pessoa` FOR EACH ROW
+BEGIN
+	set new.datainsert = now();
+
+END
 
 
 

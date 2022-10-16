@@ -75,14 +75,19 @@
 <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- JavaScript Libraries
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+<script src="/views/home/js/jquery-3.3.1.min.js"></script>
+<script src="/views/home/js/jquery.mask.min.js"></script>
+<script src="/views/home/js/jquery.maskMoney.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 <script src="/views/home/lib/easing/easing.min.js"></script>
 <script src="/views/home/lib/owlcarousel/owl.carousel.min.js"></script>
 
 <!-- Template Javascript -->
 <script src="/views/home/js/main.js"></script>
+
+<script src="/views/home/js/validacoes.js"></script>
 </body>
 
 </html>
