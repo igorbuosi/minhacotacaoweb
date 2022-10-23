@@ -84,6 +84,8 @@
 <script src="/views/home/lib/easing/easing.min.js"></script>
 <script src="/views/home/lib/owlcarousel/owl.carousel.min.js"></script>
 
+<script src="/views/painel/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
 <!-- Template Javascript -->
 <script src="/views/home/js/main.js"></script>
 

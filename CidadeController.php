@@ -16,7 +16,7 @@ $app->get('/painel/cidade', function() {
 				'page'=>$x+1,
 				'search'=>$search
 			]),
-			'text'=>$x+1
+			'text'=>$x+1 
 		]);
 	}
 

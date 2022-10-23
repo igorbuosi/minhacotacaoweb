@@ -26,6 +26,9 @@
     <link href="/views/Home/css/style.css" rel="stylesheet">
     <script src="/views/home/js/validacoes.js"></script>
     <script src="/views/home/js/jquery-3.3.1.min.js"></script>
+
+    <script src="/views/painel/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+    
 <script src="/views/home/js/jquery.mask.min.js"></script>
 <script src="/views/home/js/jquery.maskMoney.min.js"></script>
 </head>
