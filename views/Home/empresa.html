@@ -24,7 +24,7 @@
                     readonly="readonly" />
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label>CNPJ</label>
+                        <label id="labelcpfcnpj">CNPJ</label>
                         <input class="form-control" id="cnpj" name="cnpj" value="" type="text">
                     </div>
                     <div class="col-md-6 form-group">
@@ -150,13 +150,32 @@
     tipopessoa char(1) 
     tel1 varchar(15)*/
 
+
         console.log('Entrei na função de validação de campos');
-        if (document.getElementById("nomecompleto").value == '') {
+
+        if ((document.getElementById("cpfcnpjpessoa").value == '') || (document.getElementById('cpfcnpjpessoa').classList == "form-control is-invalid")) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Verifique o CPF/CNPJ!',
+                    showConfirmButton: true,
+                    timer: 2000
+                });
+                $("#cpfcnpjpessoa").focus();
+            } else  if (document.getElementById("nomecompleto").value == '') {
             document.getElementById('labelnomecompleto').innerHTML = "<FONT COLOR='red'>O nome fantasia é obrigatório</FONT>";
             document.getElementById('nomecompleto').classList.remove("is-valid");
             document.getElementById('nomecompleto').classList.add("is-invalid");
             $("#nomecompleto").focus();
-        } else {
+        } 
+        
+        
+        
+        
+        
+        
+        
+        else {
             gravarDados();
         }
     }
@@ -216,7 +235,7 @@
                         position: 'center',
                         icon: 'success',
                         title: 'Sucesso',
-                        text: 'Empresa salva com sucesso! Aguarde seu perfil ser verificado para logar!',
+                        text: 'Empresa salva com sucesso! \n Aguarde seu perfil ser verificado para logar!',
                         showConfirmButton: true,
                         timer: 10000
                     }).then(function () {

@@ -24,7 +24,7 @@
                     readonly="readonly" />
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <label>CNPJ</label>
+                        <label id="labelcpfcnpj">CNPJ</label>
                         <input class="form-control" id="cnpj" name="cnpj" value="" type="text">
                     </div>
                     <div class="col-md-6 form-group">
@@ -133,6 +133,23 @@
 
 <script type="text/javascript" language="javascript">
     function validarCampos() {
+
+        /* CAMPOS OBRIGATORIOS
+        cnpj varchar(45) 
+    ie varchar(45) 
+    razaosocial varchar(100)
+    nomecompleto varchar(100) 
+    datainsert datetime 
+    ceppessoa varchar(10) 
+    endereco varchar(100) 
+    numendereco varchar(10) 
+    bairro varchar(50) 
+    complemento varchar(45)
+    login varchar(45) 
+    senha varchar(45) 
+    tipopessoa char(1) 
+    tel1 varchar(15)*/
+
         console.log('Entrei na função de validação de campos');
         if (document.getElementById("nomecompleto").value == '') {
             document.getElementById('labelnomecompleto').innerHTML = "<FONT COLOR='red'>O nome fantasia é obrigatório</FONT>";
@@ -199,7 +216,7 @@
                         position: 'center',
                         icon: 'success',
                         title: 'Sucesso',
-                        text: 'Empresa salva com sucesso! Aguarde seu perfil ser verificado para logar!',
+                        text: 'Empresa salva com sucesso! \n Aguarde seu perfil ser verificado para logar!',
                         showConfirmButton: true,
                         timer: 10000
                     }).then(function () {

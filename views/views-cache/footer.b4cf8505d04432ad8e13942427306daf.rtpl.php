@@ -52,6 +52,7 @@
 
 <!-- BS-Stepper -->
 <script src="/views/painel/plugins/bs-stepper/js/bs-stepper.min.js"></script>
+<link rel="stylesheet" href="/views/painel/plugins/bs-stepper/css/bs-stepper.min.css">
 
 </body>
 
