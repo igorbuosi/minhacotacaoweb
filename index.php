@@ -5,9 +5,7 @@ use \Slim\Slim;
 
 
 $app = new Slim();
-
 $app->config('debug', true);
-
 
 
 //require_once("functions.php");
@@ -17,15 +15,11 @@ require_once("MarcaController.php");
 require_once("Subgrupocontroller.php");
 require_once("CidadeController.php");
 require_once("ProdutoController.php");
-//require_once("admin.php");
-//require_once("admin-categories.php");
-//require_once("admin-users.php");
-//require_once("admin-products.php");
-//require_once("admin-orders.php");
+require_once("CodigobarraprodutoController.php");
 
-
-
-
+//home
+require_once("HomeController.php");
+require_once("EmpresaController.php");
 $app->run();
 
  ?>

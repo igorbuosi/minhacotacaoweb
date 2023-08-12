@@ -38,20 +38,22 @@
               <div class="card-body">
                 <div class="form-group">
                   <div class="form-line row">
-                    <input class="form-control" type="hidden" name="idproduto" id="idproduto" value=""
-                      readonly="readonly">
+                    <input class="form-control" type="hidden" name="idproduto" id="idproduto"
+                      value="<?php echo htmlspecialchars( $produto["idproduto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" readonly="readonly">
                     <div class="col-6">
                       <label for="descricao" id="labeldescricao">Descrição</label>
-                      <input type="text" class="form-control" maxlength="100" id="descricao" name="descricao"
-                        placeholder="Digite a descrição resumida do produto">
+                      <input type="text" class="form-control" maxlength="100" value="<?php echo htmlspecialchars( $produto["descricao"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                        id="descricao" name="descricao" placeholder="Digite a descrição resumida do produto">
                     </div>
                     <div class="col-4">
                       <label for="ncm" id="labelncm">NCM</label>
-                      <input class="form-control" type="text" name="ncm" id="ncm" value="" maxLength="8" />
+                      <input class="form-control" type="text" name="ncm" id="ncm" value="<?php echo htmlspecialchars( $produto["ncm"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                        maxLength="8" />
                     </div>
                     <div class="col-2">
                       <label for="unidademedida" id="labelunidademedida">Unidade Medida</label>
-                      <input class="form-control" type="text" name="unidademedida" id="unidademedida" maxLength="5" />
+                      <input class="form-control" type="text" name="unidademedida" value="<?php echo htmlspecialchars( $produto["unidademedida"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                        id="unidademedida" maxLength="5" />
                     </div>
 
                   </div>
@@ -64,7 +66,10 @@
                       <select class="form-control" id="idmarca" name="idmarca">
                         <option id="0" value="0">Selecione a marca</option>
                         <?php $counter1=-1;  if( isset($marcas) && ( is_array($marcas) || $marcas instanceof Traversable ) && sizeof($marcas) ) foreach( $marcas as $key1 => $value1 ){ $counter1++; ?>
-                        <option id="<?php echo htmlspecialchars( $value1["idmarca"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $value1["idmarca"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["nomemarca"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                        <option id="<?php echo htmlspecialchars( $value1["idmarca"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $value1["idmarca"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" 
+                        <?php if( $value1["idmarca"] == $produto["idmarca"] ){ ?> selected <?php } ?>>
+                          <?php echo htmlspecialchars( $value1["nomemarca"], ENT_COMPAT, 'UTF-8', FALSE ); ?>
+                        </option>
                         <?php } ?>
                       </select>
                     </div>
@@ -74,7 +79,9 @@
                       <select class="form-control" id="idgrupo" name="idgrupo">
                         <option id="0" value="0">Selecione o grupo</option>
                         <?php $counter1=-1;  if( isset($grupos) && ( is_array($grupos) || $grupos instanceof Traversable ) && sizeof($grupos) ) foreach( $grupos as $key1 => $value1 ){ $counter1++; ?>
-                        <option id="<?php echo htmlspecialchars( $value1["idgrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $value1["idgrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["nomegrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                        <option id="<?php echo htmlspecialchars( $value1["idgrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $value1["idgrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" 
+                        <?php if( $value1["idgrupo"] == $produto["idgrupo"] ){ ?> selected <?php } ?>>
+                          <?php echo htmlspecialchars( $value1["nomegrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -84,19 +91,20 @@
                       <select class="form-control" id="idsubgrupo" name="idsubgrupo">
                         <option id="0" value="0">Selecione o subgrupo</option>
                         <?php $counter1=-1;  if( isset($subgrupos) && ( is_array($subgrupos) || $subgrupos instanceof Traversable ) && sizeof($subgrupos) ) foreach( $subgrupos as $key1 => $value1 ){ $counter1++; ?>
-                        <option id="<?php echo htmlspecialchars( $value1["idsubgrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $value1["idsubgrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["nomesubgrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                        <option id="<?php echo htmlspecialchars( $value1["idsubgrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" value="<?php echo htmlspecialchars( $value1["idsubgrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                        <?php if( $value1["idsubgrupo"] == $produto["idsubgrupo"] ){ ?> selected <?php } ?>><?php echo htmlspecialchars( $value1["nomesubgrupo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
                         <?php } ?>
                       </select>
                     </div>
                   </div>
                 </div>
-
                 <div class="form-group">
                   <div class="form-line row">
                     <div class="col-sm">
                       <label for="descricaodetalhada" id="labeldescricaodetalhada">Descrição detalhada</label>
                       <textarea class="form-control" id="descricaodetalhada" name="descricaodetalhada" rows="3"
-                        placeholder="Digite a descrição detalhada" maxlength="500"></textarea>
+                        placeholder="Digite a descrição detalhada"
+                        maxlength="500"><?php if( $produto["descricaodetalhada"] != '' ){ ?><?php echo htmlspecialchars( $produto["descricaodetalhada"], ENT_COMPAT, 'UTF-8', FALSE ); ?><?php } ?></textarea>
                     </div>
                   </div>
                 </div>
@@ -112,45 +120,51 @@
                 <div class="form-group">
                   <div class="form-line row">
                     <div class="col-sm">
-                      <label for="descricaodetalhada" id="labeldescricaodetalhada">Código de Barras</label>
+                      <label for="descricaodetalhada" id="labelcodigobarraproduto">Código de Barras</label>
                       <div class="input-group input-group-mb-3">
-                        <input type="text" class="form-control" place="Digite o código de barras do produto" />
+                        <input type="text" class="form-control" id="codigobarraproduto"
+                          place="Digite o código de barras do produto" />
                         <span class="input-group-append">
-                          <button type="button" onclick="addLinhaCodBarraHTML()"
-                            class="btn btn-primary btn-flat">Adicionar</button>
+                          <button type="button" onclick="validarCamposCodigoBarraProduto()"
+                            class="btn btn-primary btn-flat" id="adicionarcodigobarraproduto">Adicionar</button>
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!-- Loop dos códigos de barras já cadastrados-->
-                <div id="espacoadd">
-                  <div class="form-line row">
-                    <div class="col-sm">
-                      <div class="input-group input-group-mb-3">
-                        <input type="text" class="form-control" value="789456123" disabled />
-                        <span class="input-group-append">
-                          <button type="button" class="btn btn-danger btn-flat">Remover</button>
-                        </span>
+                  <div id="espacoadd">
+                  <!-- Loop dos códigos de barras já cadastrados-->
+                  <?php $counter1=-1;  if( isset($codigobarraprodutos) && ( is_array($codigobarraprodutos) || $codigobarraprodutos instanceof Traversable ) && sizeof($codigobarraprodutos) ) foreach( $codigobarraprodutos as $key1 => $value1 ){ $counter1++; ?>
+                  <div id="div_<?php echo htmlspecialchars( $value1["idcodigobarraproduto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>">
+                    <div class="form-group"></div>
+                    <div class="form-line row">
+                      <div class="col-sm">
+                        <div class="input-group input-group-mb-3">
+                          <input type="text" class="form-control" id="<?php echo htmlspecialchars( $value1["idcodigobarraproduto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"
+                            value="<?php echo htmlspecialchars( $value1["codigobarra"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" disabled />
+                          <span class="input-group-append">
+                            <button type="button" onclick="deletar(<?php echo htmlspecialchars( $value1["idcodigobarraproduto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>)"
+                              class="btn btn-danger btn-flat">Remover</button>
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </div> 
+                  <?php } ?>  
+                  
                 </div>
-
-                <div class="form-group">
-                </div>
-
+                  <div class="form-group"></div>
 
                 <button class="btn btn-primary" onclick="stepper.previous()">Voltar <i
                     class="fa fa-arrow-left"></i></button>
                 <button class="btn btn-primary" onclick="stepper.next()">Salvar e continuar
                   <i class="fa fa-arrow-right"></i></button>
               </div>
+
             </div>
           </div>
           <!-- Fim código de barras -->
           <!-- Inicio fotos produto -->
-
           <div id="fotos-part" class="content" role="tabpanel" aria-labelledby="fotos-part-trigger">
             <div class="card-body">
               <div class="form-group">
@@ -167,7 +181,7 @@
               </div>
               <button class="btn btn-primary" onclick="stepper.previous()">Voltar <i
                   class="fa fa-arrow-left"></i></button>
-              <button class="btn btn-primary" onclick="">Finalizar</i></button>
+              <a class="btn btn-primary" href="/painel/produto">Finalizar</i></a>
             </div>
           </div>
           <!-- Fim fotos produto -->
@@ -185,113 +199,5 @@
 </div>
 <!-- /.row -->
 
-<script>
-  // BS-Stepper Init
-  document.addEventListener('DOMContentLoaded', function () {
-    window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-  });
-
-  function layoutPadraoModal() {
-    document.getElementById('labeldescricao').innerHTML = "Descrição";
-    document.getElementById('labelgrupo').innerHTML = "Grupo";
-    document.getElementById('labelmarca').innerHTML = "Marca";
-    document.getElementById('descricao').classList.remove("is-invalid");
-    document.getElementById('idgrupo').classList.remove("is-invalid");
-    document.getElementById('idmarca').classList.remove("is-invalid");
-    document.getElementById("salvarecontinuar").disabled = false;
-  }
-
-  function validarCampos() {
-    console.log('Entrei na função de validação de campos');
-    layoutPadraoModal();
-    if (document.getElementById("descricao").value == '') {
-      document.getElementById('labeldescricao').innerHTML = "<FONT COLOR='red'>A descrição é obrigatória</FONT>";
-      document.getElementById('descricao').classList.remove("is-valid");
-      document.getElementById('descricao').classList.add("is-invalid");
-      $("#descricao").focus();
-    } else if (document.getElementById("idmarca").value == 0) {
-      document.getElementById('labelmarca').innerHTML = "<FONT COLOR='red'>A marca é obrigatória</FONT>";
-      document.getElementById('idmarca').classList.remove("is-valid");
-      document.getElementById('idmarca').classList.add("is-invalid");
-    } else if (document.getElementById("idgrupo").value == 0) {
-      document.getElementById('labelgrupo').innerHTML = "<FONT COLOR='red'>O grupo é obrigatório</FONT>";
-      document.getElementById('idgrupo').classList.remove("is-valid");
-      document.getElementById('idgrupo').classList.add("is-invalid");
-    } else {
-      gravarDados();
-    }
-  }
-
-
-  function gravarDados() {
-    layoutPadraoModal();
-    document.getElementById("salvarecontinuar").disabled = true; //desabilitar o botão pra nao deixar apertar varias vezes
-    var url = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)) + "/produto";
-    var dados = "";
-    dados = "idproduto=" + document.getElementById("idproduto").value
-      + "&descricao=" + document.getElementById("descricao").value
-      + "&ncm=" + document.getElementById("ncm").value
-      + "&unidademedida=" + document.getElementById("unidademedida").value
-      + "&idmarca=" + document.getElementById("idmarca").value
-      + "&idgrupo=" + document.getElementById("idgrupo").value
-      + "&descricaodetalhada=" + document.getElementById("descricaodetalhada").value;
-
-    if (document.getElementById("idsubgrupo").value != "0") {
-      dados += "&idsubgrupo=" + document.getElementById("idsubgrupo").value;
-    }
-
-
-    console.log("Variavel dados: " + dados);
-    console.log("URL:" + url + "/cadastrar" + dados);
-
-    $.ajax({
-      asyc: false,
-      type: "POST",
-      url: url + "/cadastrar",
-      data: dados,
-      dataType: "json",
-      error: function (xhr) {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Erro',
-          text: 'Não foi possível salvar o produto!',
-          showConfirmButton: true,
-          timer: 10000
-        }).then(function () {
-          window.location.href = window.location.href = url;
-          document.getElementById("salvarecontinuar").disabled = false; //se der erro habilitar o salvar de novo
-        })
-      },
-      success: function (data) {
-        if (data.resultado == 'ok' && data.idproduto != '') {
-          document.getElementById("idproduto").value = data.idproduto; //passar o campo do idproduto cadastrado para o campo do formulario que está escondido.
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Sucesso',
-            text: 'Produto salvo com sucesso',
-            showConfirmButton: true,
-            timer: 10000
-          }).then(function () {
-            stepper.next();
-            layoutPadraoModal();
-          })
-        }
-      }
-    });
-  }
-
-  function addLinhaCodBarraHTML() {
-    var html = '<div class="form-group"></div><div class="form-line row">'
-      + '<div class="col-sm">'
-      + '<div class="input-group input-group-mb-3">'
-      + '<input type="text" class="form-control" value = "789456123" disabled/>'
-      + '<span class="input-group-append">'
-      + '<button type="button" class="btn btn-danger btn-flat">Remover</button>'
-      + '</span></div></div></div> ';
-    $("#espacoadd").append(html);
-  }
-
-
-</script>
+<!-- Chamar o java script do produto -->
+<script src="/views/painel/js/produto.js"></script>

@@ -34,7 +34,7 @@ class Sql {
 
 		$statement->bindParam($key, $value);
 
-	}
+	} 
 
 	public function query($rawQuery, $params = array())
 	{

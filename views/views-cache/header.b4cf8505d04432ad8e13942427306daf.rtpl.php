@@ -278,7 +278,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="/painel/produto/cadastrar" class="nav-link" id="menuproduto">
+                  <a href="/painel/produto" class="nav-link" id="menuproduto">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Produto</p>
                   </a>

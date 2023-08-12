@@ -61,7 +61,10 @@ class Subgrupo extends Model{
         $results = $sql->select ("select * from subgrupo where idsubgrupo = :idsubgrupo", array(
             ":idsubgrupo"=>$idsubgrupo
         ));
-        $this->setData($results[0]);
+        
+        if (isset($results[0])){
+            $this->setData($results[0]);
+        }
     }
 
     public function deletar(){
